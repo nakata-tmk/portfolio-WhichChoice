@@ -1,24 +1,45 @@
-# README
+## サイト概要
+二者択一式アンケート投稿サイト
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+### サイトテーマ
+アンケートを手軽に投稿できる
+二者択一式で気軽に回答できる
+投票結果で現在の流行等を知ることができる
 
-Things you may want to cover:
+### テーマを選んだ理由
+最近はSNS等にも投票機能が備わっており、自分以外の人がどう考えているのか、
+自分の考えは多数派なのか少数派なのか気になる人は多いと思う。
+そこで、投票だけに特化した、手軽にアンケートを投稿できるサイトを作れないか考えた。
+「手軽さ」を重視し、回答項目を2つに限定することで、項目の多さに迷わず気軽に回答しやすいようにした。
+また投票結果をCSVエクスポート出力できるようにし、データを汎用的に流用できるようにした。
 
-* Ruby version
+### ターゲットユーザ
+10～50代の一般ユーザ
 
-* System dependencies
+### 主な利用シーン
+自分の好きなもの、気になったものを手軽に二者択一式アンケートで投稿
+投票結果から他者の意見や流行を知ることができる
 
-* Configuration
+## 設計書
+-ユーザ機能
+-アンケート投稿機能
+-アンケート投票機能
+-ジャンル検索機能
+-コメント機能
+-いいね機能
+-CSV出力機能
+-RSpec
+-デプロイ
 
-* Database creation
+## チャレンジ要素一覧
+<https://docs.google.com/spreadsheets/d/1BLu3kTHJXqqBKgJxQSy-w1pB_Q4iQuqgs06hnQvgs7M/edit#gid=0>
 
-* Database initialization
+## 開発環境
+- OS：Linux(CentOS)
+- 言語：HTML,CSS,JavaScript,Ruby,SQL
+- フレームワーク：Ruby on Rails
+- JSライブラリ：jQuery
+- IDE：Cloud9
 
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+## 使用素材
+[ぱくたそ](https://www.pakutaso.com/)
