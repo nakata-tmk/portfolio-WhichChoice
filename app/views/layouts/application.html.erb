@@ -4,12 +4,30 @@
     <title>WhichChoice</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
   <body>
-    <%= yield %>
+    <header>
+      <h1><%= link_to "あなたはどっち派？？", root_path %></h1>
+
+      <ul>
+        <li><%= link_to "About", about_path %></li>
+        <li>投稿一覧</li>
+        <li>新規登録</li>
+        <li>ログイン</li>
+      </ul>
+    </header>
+
+    <main>
+      <%= yield %>
+    </main>
+
+    <footer>
+      <p>© Which choice</p>
+    </footer>
   </body>
 </html>
