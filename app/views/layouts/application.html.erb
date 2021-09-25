@@ -14,11 +14,20 @@
     <header>
       <h1><%= link_to "あなたはどっち派？？", root_path %></h1>
 
-      <ul>
-        <li><%= link_to "About", about_path %></li>
-        <li>投稿一覧</li>
-        <li><%= link_to "新規登録", new_user_registration_path %></li>
-        <li><%= link_to "ログイン", new_user_session_path %></li>
+    <% if admin_signed_in? %>
+      管理者でログイン
+      <%= link_to "ログアウト", destroy_admin_session_path, method: :delete  %>
+    <% elsif user_signed_in? %>
+      ユーザログイン
+      <%= link_to "ログアウト", destroy_user_session_path, method: :delete  %>
+    <% else %>
+      <%= link_to "About", about_path %>
+      投稿一覧
+      <%= link_to "新規登録", new_user_registration_path %>
+      <%= link_to "ログイン", new_user_session_path %>
+      <%= link_to "ゲストログイン", users_guest_sign_in_path, method: :post %>
+    <% end %>
+
       </ul>
     </header>
 

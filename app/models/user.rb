@@ -38,4 +38,14 @@ class User < ApplicationRecord
     shikoku: 6,
     kyuusyuu: 7
   }
+
+  def self.guest
+    find_or_create_by!(email: 'guest@example.com') do |user|
+      user.name = "ゲスト"
+      user.sex = 0
+      user.age = 0
+      user.area = 0
+      user.password = SecureRandom.urlsafe_base64
+    end
+  end
 end
