@@ -22,3 +22,10 @@ ja:
         cyuugoku: '中国'
         shikoku: '四国'
         kyuusyuu: '九州'
+
+  activerecord:
+    models:
+      genre: 'ジャンル'
+    attributes:
+      genre:
+        name: ジャンル名
