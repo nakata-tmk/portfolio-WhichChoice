@@ -7,6 +7,7 @@ Rails.application.routes.draw do
       registrations: 'admin/admins/registrations',
       passwords: 'admin/admins/passwords'
     }
+    resources :genres, only: [:index, :create, :edit, :update ]
   end
 
   scope module: :public do
