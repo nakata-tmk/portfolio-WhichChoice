@@ -1,0 +1,24 @@
+ja:
+  enums:
+    user:
+      sex:
+        man: '男'
+        woman: '女'
+
+      age:
+        teens: '～10代'
+        twenties: '20代'
+        thirties: '30代'
+        forties: '40代'
+        fifties: '50代'
+        sixties: '60代～'
+
+      area:
+        hokkaidou: '北海道'
+        touhoku: '東北'
+        kantou: '関東'
+        cyuubu: '中部'
+        kansai: '関西'
+        cyuugoku: '中国'
+        shikoku: '四国'
+        kyuusyuu: '九州'
