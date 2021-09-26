@@ -1,0 +1,37 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-7">
+
+      <div id="alert">
+        <%= render partial: 'layouts/message', locals: { model: @user } %>
+      </div>
+
+      <h4><%= @user.name %>さんの会員情報編集</h4>
+
+        <%= form_with model: [:admin, @user], local:true do |f| %>
+          <%= f.label :name, "名前" %>
+          <%= f.text_field :name %>
+
+          <%= f.label :email, "メールアドレス" %>
+          <%= f.email_field :email %>
+
+          <%= f.label :image, "画像" %>
+          <%= f.attachment_field :image %>
+
+          <%= f.label :sex, "性別" %>
+          <%= f.select :sex, User.sexes.keys.map{|k| [I18n.t("enums.user.sex.#{k}"), k]} %>
+
+          <%= f.label :age, "年齢" %>
+          <%= f.select :age, User.ages.keys.map{|k| [I18n.t("enums.user.age.#{k}"), k]} %>
+
+          <%= f.label :area, "地域" %>
+          <%= f.select :area, User.areas.keys.map{|k| [I18n.t("enums.user.area.#{k}"), k]} %>
+
+          <%= f.label :is_active, "会員ステータス" %>
+          <%= f.radio_button :is_active, "true" %>有効 <%=f.radio_button :is_active, "false" %>退会</td>
+
+          <%= f.submit "編集" %>
+        <% end %>
+    </div>
+  </div>
+</div>

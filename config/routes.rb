@@ -8,6 +8,7 @@ Rails.application.routes.draw do
       passwords: 'admin/admins/passwords'
     }
     resources :genres, only: [:index, :create, :edit, :update]
+    resources :users, only: [:index, :show, :edit, :update]
   end
 
   scope module: :public do

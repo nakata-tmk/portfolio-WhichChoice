@@ -1,0 +1,47 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-7">
+      <h4><%= @user.name %>さんの会員詳細</h4>
+
+      <table class="table table-borderless">
+        <tr>
+          <td>ID</td>
+          <td><%= @user.id %></td>
+        </tr>
+        <tr>
+          <td>画像</td>
+          <td><%= attachment_image_tag @user, :image, size: "50x50", fallback: "no_image.jpg" %></td>
+        </tr>
+        <tr>
+          <td>氏名</td>
+          <td><%= @user.name %></td>
+        </tr>
+        <tr>
+          <td>メールアドレス</td>
+          <td><%= @user.email %></td>
+        </tr>
+        <tr>
+          <td>性別</td>
+          <td><%= @user.sex_i18n %></td>
+        </tr>
+        <tr>
+          <td>年齢</td>
+          <td><%= @user.age_i18n %></td>
+        </tr>
+        <tr>
+          <td>地域</td>
+          <td><%= @user.area_i18n %></td>
+        </tr>
+        <tr>
+          <td>会員ステータス</td>
+          <td><%= @user.is_active ? "有効" : "退会" %></td>
+        </tr>
+        <tr>
+          <td></td>
+          <td><%= link_to "編集する", edit_admin_user_path(@user.id), class: "btn btn-success btn-sm text-white" %></td>
+          <td>投稿履歴一覧を見る</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>
