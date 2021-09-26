@@ -1,0 +1,27 @@
+<h2>投稿一覧</h2>
+
+<table>
+  <tr>
+    <th>投稿日</th>
+    <th>会員名</th>
+    <th>ジャンル</th>
+    <th>タイトル</th>
+  </tr>
+
+  <% @questions.each do |question| %>
+    <tr>
+      <td><%= question.created_at.strftime('%Y/%m/%d') %></td>
+      <td>
+        <%= attachment_image_tag question.user, :image, fallback: "no_image.jpg" %>
+        <br>
+        <%= question.user.name %>
+      </td>
+      <td><%= question.genre.name %></td>
+      <td>
+        <%= link_to admin_question_path(question) do %>
+          <%= question.object1 + '派 or ' + question.object2 + '派？' %>
+        <% end %>
+      </td>
+    </tr>
+  <% end %>
+</table>

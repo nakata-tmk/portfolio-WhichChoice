@@ -9,6 +9,8 @@ Rails.application.routes.draw do
     }
     resources :genres, only: [:index, :create, :edit, :update]
     resources :users, only: [:index, :show, :edit, :update]
+    resources :questions, only: [:show, :destroy]
+    get '/' => 'homes#top', as: 'top'
   end
 
   scope module: :public do
@@ -26,8 +28,6 @@ Rails.application.routes.draw do
       registrations: 'public/users/registrations',
       passwords: 'public/users/passwords'
     }
-
-
 
     devise_scope :user do
       post '/users/guest_sign_in' => 'users/sessions#guest_sign_in'
