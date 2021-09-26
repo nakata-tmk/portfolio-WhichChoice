@@ -27,6 +27,25 @@
 <%= link_to "編集", edit_users_path %>
 <%= link_to "退会", users_leave_path %>
 
+<table>
+  <tr>
+    <th>投稿日</th>
+    <th>ジャンル</th>
+    <th>タイトル</th>
+    <th>本文</th>
+  </tr>
 
-
+  <% @questions.each do |question| %>
+    <tr>
+      <td><%= question.created_at.strftime('%Y/%m/%d') %></td>
+      <td><%= question.genre.name %></td>
+      <td>
+        <%= link_to question_path(question) do %>
+          <%= 'あなたは' + question.object1 + '派 or ' + question.object2 + '派？' %>
+        <% end %>
+      </td>
+      <td><%= question.body %></td>
+    </tr>
+  <% end %>
+</table>
 
