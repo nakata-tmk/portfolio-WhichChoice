@@ -1,0 +1,15 @@
+<h2>アンケート投稿一覧</h2>
+
+<%= link_to "新規投稿", new_question_path %>
+
+<% @questions.each do |question| %>
+  <%= attachment_image_tag question.user, :image, size: "50x50", fallback: "no_image.jpg" %>
+  <%= question.user.name %>
+  <%= question.created_at.strftime('%Y/%m/%d') %>
+
+  <%= link_to question_path(question) do %>
+    <%= 'あなたは' + question.object1 + '派 or ' + question.object2 + '派？' %>
+  <% end %>
+  <%= question.body %>
+  <%= question.genre.name %>
+<% end %>

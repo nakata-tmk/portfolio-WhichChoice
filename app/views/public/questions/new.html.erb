@@ -1,0 +1,19 @@
+<h2>アンケート新規投稿</h2>
+
+<%= form_with model:@question, local:true do |f| %>
+  <%= f.label :object1, "質問項目1" %>
+  <%= f.text_field :object1 %>派
+
+  <%= f.label :object2, "質問項目2" %>
+  <%= f.text_field :object2 %>派
+
+  <%= f.label :select_genre, "ジャンル" %>
+  <%= f.select :genre_id, options_from_collection_for_select(Genre.all, :id, :name), :include_blank => "選択してください" %>
+
+  <%= f.label :body, "本文" %>
+  <%= f.text_area :body %>
+
+  <%= f.hidden_field :user_id, :value => current_user.id %>
+
+  <%= f.submit "投稿" %>
+<% end %>
