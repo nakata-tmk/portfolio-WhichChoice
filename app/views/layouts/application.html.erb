@@ -20,6 +20,7 @@
       <%= link_to "ログアウト", destroy_admin_session_path, method: :delete  %>
     <% elsif user_signed_in? %>
       ユーザログイン
+      <%= link_to "マイページ", users_path %>
       <%= link_to "ログアウト", destroy_user_session_path, method: :delete  %>
     <% else %>
       <%= link_to "About", about_path %>
@@ -33,6 +34,14 @@
     </header>
 
     <main>
+
+<% if flash[:notice] %>
+<p><%= flash[:notice] %></p>
+<% end %>
+
+<% if flash[:alert] %>
+<p><%= flash[:alert] %></p>
+<% end %>
       <%= yield %>
     </main>
 

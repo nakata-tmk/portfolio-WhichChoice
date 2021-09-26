@@ -1,0 +1,32 @@
+<h2>マイページ</h2>
+
+<table>
+  <tr>
+    <th>名前</th>
+    <td><%= @user.name %></td>
+    <td><%= attachment_image_tag @user, :image, fallback: "no_image.jpg" %></td>
+  </tr>
+  <tr>
+    <th>メールアドレス</th>
+    <td><%= @user.email %></td>
+  </tr>
+  <tr>
+    <th>性別</th>
+    <td><%= @user.sex_i18n %></td>
+  </tr>
+  <tr>
+    <th>年齢</th>
+    <td><%= @user.age_i18n %></td>
+  </tr>
+  <tr>
+    <th>地域</th>
+    <td><%= @user.area_i18n %></td>
+  </tr>
+</table>
+
+<%= link_to "編集", edit_users_path %>
+<%= link_to "退会", users_leave_path %>
+
+
+
+

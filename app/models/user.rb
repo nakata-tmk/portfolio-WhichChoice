@@ -48,4 +48,10 @@ class User < ApplicationRecord
       user.password = SecureRandom.urlsafe_base64
     end
   end
+
+  attachment :image
+
+  def active_for_authentication?
+    super && (self.is_active === true)
+  end
 end
