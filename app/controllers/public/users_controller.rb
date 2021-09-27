@@ -28,6 +28,13 @@ class Public::UsersController < ApplicationController
     redirect_to root_path, notice: '退会しました'
   end
 
+  before_action :check_guest, only: [:update, :withdraw]
+  def check_guest
+    if current_user.email == 'guest@example.com'
+      redirect_to root_path, alert: 'ゲストユーザー情報の編集・削除はできません。'
+    end
+  end
+
   private
     def user_params
       params.require(:user).permit(:name, :email, :sex, :age, :area, :image_id)
