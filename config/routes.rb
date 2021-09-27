@@ -11,17 +11,26 @@ Rails.application.routes.draw do
     resources :users, only: [:index, :show, :edit, :update]
     resources :questions, only: [:show, :destroy]
     get '/' => 'homes#top', as: 'top'
+    get '/search' => 'homes#search'
+
   end
 
   scope module: :public do
     root to: 'homes#top'
     get '/about' => 'homes#about', as: 'about'
 
-    resource :users, only: [:show, :edit, :update]
-    get '/users/leave' => 'users#leave', as: 'users_leave'
-    patch '/users/withdraw' => 'users#withdraw', as: 'users_withdraw'
+    resource :users, only: [:show, :edit, :update] do
+      collection do
+        get :leave
+        patch :withdraw
+      end
+    end
 
-    resources :questions
+    resources :questions do
+      collection do
+        get :search
+      end
+    end
 
     devise_for :users, controllers: {
       sessions: 'public/users/sessions',

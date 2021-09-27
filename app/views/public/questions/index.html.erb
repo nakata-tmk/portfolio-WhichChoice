@@ -1,4 +1,19 @@
-<h2>アンケート投稿一覧</h2>
+<h3>ジャンル一覧</h3>
+<% @genres.each do |genre| %>
+  <p>
+    <%= link_to questions_path(genre_id: genre.id) do %>
+      <%= genre.name %>
+    <% end %>
+  </p>
+<% end %>
+
+<h3>キーワード検索</h3>
+<%= form_with url:search_questions_path, local:true, method: :get do |f| %>
+  <%= f.text_field :keyword, placeholder: "キーワードを入力" %>
+  <%= f.submit "検索" %>
+<% end %>
+
+<h2><%= @name + '一覧（全' + @count.to_s + '件）' %></h2>
 
 <%= link_to "新規投稿", new_question_path %>
 

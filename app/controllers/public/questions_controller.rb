@@ -1,6 +1,16 @@
 class Public::QuestionsController < ApplicationController
   def index
-    @questions = Question.page(params[:page])
+    @genres = Genre.all
+    if params[:genre_id].present?
+      @genre = Genre.find(params[:genre_id])
+      @questions = @genre.questions.page(params[:id])
+      @name = @genre.name
+      @count = @questions.count
+    else
+      @questions = Question.page(params[:page])
+      @name = "投稿"
+      @count = @questions.count
+    end
   end
 
   def show
@@ -39,6 +49,16 @@ class Public::QuestionsController < ApplicationController
     question = Question.find(params[:id])
     question.destroy
     redirect_to questions_path
+  end
+
+  def search
+    @title = "「#{params[:keyword]}」の検索結果"
+    if params[:keyword].present?
+     @questions = Question.where(['object1 LIKE? OR object1 LIKE? OR body LIKE?',
+      "%#{params[:keyword]}%", "%#{params[:keyword]}%", "%#{params[:keyword]}%"]).page(params[:page])
+    else
+     @questions = Question.none
+    end
   end
 
   private
