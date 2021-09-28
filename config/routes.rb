@@ -12,7 +12,6 @@ Rails.application.routes.draw do
     resources :questions, only: [:show, :destroy]
     get '/' => 'homes#top', as: 'top'
     get '/search' => 'homes#search'
-
   end
 
   scope module: :public do
@@ -31,6 +30,8 @@ Rails.application.routes.draw do
         get :search
       end
     end
+
+    resource :answer, only: [:create]
 
     devise_for :users, controllers: {
       sessions: 'public/users/sessions',

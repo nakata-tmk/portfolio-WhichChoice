@@ -6,7 +6,23 @@
   <%= @question.body %>
   <%= @question.genre.name %>
 
+<h3>投票結果</h3>
+  <%= @question.object1 + "派　　" + @counts_object1.to_s %>
+  <%= @question.object2 + "派　　" + @counts_object2.to_s %>
+
   <% if @question.user == current_user %>
     <%= link_to "編集", edit_question_path %>
     <%= link_to "削除", question_path(@question.id), method: :delete, "data-confirm" => "本当に削除しますか？" %>
   <% end %>
+
+
+  <h3>投票</h3>
+
+      <%= form_with model:@answer, url:answer_path, local:true do |f| %>
+        <%= f.radio_button :answer, 0 %>
+        <%= f.label :answer, @question.object1 + "派" %>
+        <%= f.radio_button :answer, 1 %>
+        <%= f.label :answer, @question.object2 + "派" %>
+        <%= f.hidden_field :question_id, :value => @question.id %>
+        <%= f.submit "投票" %>
+      <% end %>

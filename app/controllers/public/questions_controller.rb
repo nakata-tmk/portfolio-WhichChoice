@@ -1,4 +1,11 @@
 class Public::QuestionsController < ApplicationController
+  before_action :check_guest, only: [:create, :update, :destroy]
+  def check_guest
+    if current_user.email == 'guest@example.com'
+      redirect_to root_path, alert: 'ゲストユーザーのため権限がありません'
+    end
+  end
+
   def index
     @genres = Genre.all
     if params[:genre_id].present?
@@ -15,6 +22,9 @@ class Public::QuestionsController < ApplicationController
 
   def show
     @question = Question.find(params[:id])
+    @answer = Answer.new
+    @counts_object1 = Answer.where(question_id: @question.id, answer: 0).count
+    @counts_object2 = Answer.where(question_id: @question.id, answer: 1).count
   end
 
   def new
