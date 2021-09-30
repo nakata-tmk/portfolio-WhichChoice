@@ -23,6 +23,7 @@ class Public::QuestionsController < ApplicationController
   def show
     @question = Question.find(params[:id])
     @answer = Answer.new
+    @comments = Comment.where(question_id: @question.id)
     @counts_object1 = Answer.where(question_id: @question.id, answer: 0).count
     @counts_object2 = Answer.where(question_id: @question.id, answer: 1).count
   end
