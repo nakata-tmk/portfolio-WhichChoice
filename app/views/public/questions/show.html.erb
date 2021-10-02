@@ -16,6 +16,21 @@
   <% end %>
 
 
+  <% if @question.favorited_by?(current_user) %>
+    <p>
+      <%= link_to question_favorites_path(@question), method: :delete do %>
+        ♥<%= @question.favorites.count %> いいね
+      <% end %>
+    </p>
+    <% else %>
+    <p>
+      <%= link_to question_favorites_path(@question), method: :post do %>
+        ♡<%= @question.favorites.count %> いいね
+      <% end %>
+    </p>
+  <% end %>
+
+
   <h3>投票</h3>
 
       <%= form_with model:@answer, url:answer_path, local:true do |f| %>
@@ -28,7 +43,7 @@
       <% end %>
 
   <h3>コメント</h3>
-    <%= form_with model:@comment, url:comments_path, local:true do |f| %>
+    <%= form_with model:@comment, local:true do |f| %>
       <%= f.text_area :body, placeholder: "コメントを入力" %>
       <%= f.hidden_field :user_id, :value => current_user.id %>
       <%= f.hidden_field :question_id, :value => @question.id %>
@@ -42,8 +57,8 @@
       <%= comment.body %>
 
       <% if comment.user_id == current_user.id %>
-        <%= link_to "編集", edit_comment_path(comment.id) %>
-        <%= link_to "削除", comment_path(comment.id), method: :delete, "data-confirm" => "本当に削除しますか？"  %>
+        <%= link_to "編集", edit_question_comment_path(comment.id) %>
+        <%= link_to "削除", question_comment_path(comment.id), method: :delete, "data-confirm" => "本当に削除しますか？"  %>
       <% end %>
     <% end %>
 

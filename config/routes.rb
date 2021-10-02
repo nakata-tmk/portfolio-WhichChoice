@@ -27,6 +27,8 @@ Rails.application.routes.draw do
     end
 
     resources :questions do
+      resources :comments, only: [:create, :edit, :update, :destroy]
+      resource :favorites, only: [:create, :destroy]
       collection do
         get :search
       end
@@ -44,7 +46,8 @@ Rails.application.routes.draw do
       post '/users/guest_sign_in' => 'users/sessions#guest_sign_in'
     end
 
-    resources :comments, only: [:create, :edit, :update, :destroy]
+
+
   end
 
 end
