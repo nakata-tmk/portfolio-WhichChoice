@@ -15,20 +15,9 @@
     <%= link_to "削除", question_path(@question.id), method: :delete, "data-confirm" => "本当に削除しますか？" %>
   <% end %>
 
-
-  <% if @question.favorited_by?(current_user) %>
-    <p>
-      <%= link_to question_favorites_path(@question), method: :delete do %>
-        ♥<%= @question.favorites.count %> いいね
-      <% end %>
-    </p>
-    <% else %>
-    <p>
-      <%= link_to question_favorites_path(@question), method: :post do %>
-        ♡<%= @question.favorites.count %> いいね
-      <% end %>
-    </p>
-  <% end %>
+  <div id="favorite_<%= @question.id %>">
+    <%= render partial: 'public/favorites/favorites', locals: { question: @question } %>
+  </div>
 
 
   <h3>投票</h3>
