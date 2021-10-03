@@ -1,5 +1,5 @@
 class Public::CommentsController < ApplicationController
-  before_action :check_guest, only: [:create, :update, :destroy]
+  before_action :check_guest, only: [:create, :destroy]
   def check_guest
     if current_user.email == 'guest@example.com'
       redirect_to root_path, alert: 'ゲストユーザーのため権限がありません'

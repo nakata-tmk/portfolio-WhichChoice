@@ -16,15 +16,17 @@
 <h2><%= @name + '一覧（全' + @count.to_s + '件）' %></h2>
 
 <%= link_to "新規投稿", new_question_path %>
+<%= link_to "CSV出力", questions_path(format: :csv) %>
 
 <% @questions.each do |question| %>
   <%= attachment_image_tag question.user, :image, size: "50x50", fallback: "no_image.jpg" %>
   <%= question.user.name %>
   <%= question.created_at.strftime('%Y/%m/%d') %>
-
   <%= link_to question_path(question) do %>
     <%= 'あなたは' + question.object1 + '派 or ' + question.object2 + '派？' %>
   <% end %>
   <%= question.body %>
+  <%= Answer.where(question_id: question.id, answer: 0).count %>
+  <%= Answer.where(question_id: question.id, answer: 1).count %>
   <%= question.genre.name %>
 <% end %>

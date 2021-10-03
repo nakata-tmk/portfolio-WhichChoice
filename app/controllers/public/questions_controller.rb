@@ -18,6 +18,8 @@ class Public::QuestionsController < ApplicationController
       @name = "投稿"
       @count = @questions.count
     end
+  
+
   end
 
   def show
