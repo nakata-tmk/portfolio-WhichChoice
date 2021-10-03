@@ -7,7 +7,10 @@ class Public::CommentsController < ApplicationController
   end
 
   def create
-    comment = Comment.new(comment_params_create)
+    question = Question.find(params[:question_id])
+    comment = Comment.new(comment_params)
+    comment.user_id = current_user.id
+    comment.question_id = question.id
     if comment.save
       redirect_to request.referer, notice: 'コメントしました'
     else
@@ -15,32 +18,14 @@ class Public::CommentsController < ApplicationController
     end
   end
 
-  def edit
-    @comment = Comment.find(params[:id])
-  end
-
-  def update
-    comment = Comment.find(params[:id])
-    if comment.update(comment_params_update)
-      redirect_to question_path(comment.question_id), notice: 'コメントを編集しました'
-    else
-      @comment = comment
-      render :edit
-    end
-  end
-
   def destroy
-    comment = Comment.find(params[:id])
+    comment = Comment.find_by(id: params[:id])
     comment.destroy
     redirect_to request.referer
   end
 
   private
-    def comment_params_create
-      params.permit(:user_id, :question_id, :body)
-    end
-
-    def comment_params_update
+    def comment_params
       params.require(:comment).permit(:user_id, :question_id, :body)
     end
 end

@@ -10,6 +10,33 @@
   <%= @question.object1 + "派　　" + @counts_object1.to_s %>
   <%= @question.object2 + "派　　" + @counts_object2.to_s %>
 
+<div style="width:500px; height:300px;">
+<canvas id="myPieChart"></canvas>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.js"></script>
+<script>
+  var ctx = document.getElementById("myPieChart");
+  var myPieChart = new Chart(ctx, {
+    type: 'pie',
+    data: {
+      labels: ["<%=@question.object1 %>派", "<%= @question.object2 %>派"],
+      datasets: [{
+          backgroundColor: [
+              "#BB5179",
+              "#FAFF67"
+          ],
+          data: [<%= @counts_object1.to_s %>, <%= @counts_object2.to_s %>]
+      }]
+    },
+    options: {
+      title: {
+        display: true,
+        text: 'アンケート結果'
+      }
+    }
+  });
+  </script>
+</div>
+
   <% if @question.user == current_user %>
     <%= link_to "編集", edit_question_path %>
     <%= link_to "削除", question_path(@question.id), method: :delete, "data-confirm" => "本当に削除しますか？" %>
@@ -32,22 +59,21 @@
       <% end %>
 
   <h3>コメント</h3>
-    <%= form_with model:@comment, local:true do |f| %>
+    <%= form_with model: [@question, @comment], local:true do |f| %>
       <%= f.text_area :body, placeholder: "コメントを入力" %>
       <%= f.hidden_field :user_id, :value => current_user.id %>
       <%= f.hidden_field :question_id, :value => @question.id %>
       <%= f.submit "コメントする" %>
     <% end %>
 
-    <% @comments.each do |comment| %>
+
+    <% @question.comments.each do |comment| %>
       <%= attachment_image_tag comment.user, :image, size: "50x50", fallback: "no_image.jpg" %>
       <%= comment.user.name %>
       <%= comment.created_at.strftime('%Y/%m/%d') %>
       <%= comment.body %>
-
-      <% if comment.user_id == current_user.id %>
-        <%= link_to "編集", edit_question_comment_path(comment.id) %>
-        <%= link_to "削除", question_comment_path(comment.id), method: :delete, "data-confirm" => "本当に削除しますか？"  %>
+      <% if comment.user == current_user %>
+        <%= link_to "削除", question_comment_path(comment.question, comment), method: :delete, "data-confirm" => "本当に削除しますか？"  %>
       <% end %>
     <% end %>
 

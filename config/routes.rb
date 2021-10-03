@@ -27,7 +27,7 @@ Rails.application.routes.draw do
     end
 
     resources :questions do
-      resources :comments, only: [:create, :edit, :update, :destroy]
+      resources :comments, only: [:create, :destroy]
       resource :favorites, only: [:create, :destroy]
       collection do
         get :search
