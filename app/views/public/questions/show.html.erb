@@ -10,6 +10,28 @@
   <%= @question.object1 + "派　　" + @counts_object1.to_s %>
   <%= @question.object2 + "派　　" + @counts_object2.to_s %>
 
+
+<h3>回答ソート</h3>
+<p>男女別</p>
+  <%= User.sexes_i18n[:man] %>
+  <%= User.sexes_i18n[:woman] %>
+<p>年齢別</p>
+  <%= User.ages_i18n[:teens] %>
+  <%= User.ages_i18n[:twenties] %>
+  <%= User.ages_i18n[:thirties] %>
+  <%= User.ages_i18n[:forties] %>
+  <%= User.ages_i18n[:fifties] %>
+  <%= User.ages_i18n[:sixties] %>
+<p>地域別</p>
+  <%= User.areas_i18n[:hokkaidou] %>
+  <%= User.areas_i18n[:touhoku] %>
+  <%= User.areas_i18n[:kantou] %>
+  <%= User.areas_i18n[:cyuubu] %>
+  <%= User.areas_i18n[:kansai] %>
+  <%= User.areas_i18n[:cyuugoku] %>
+  <%= User.areas_i18n[:shikoku] %>
+  <%= User.areas_i18n[:kyuusyuu] %>
+
 <div style="width:500px; height:300px;">
 <canvas id="myPieChart"></canvas>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.js"></script>

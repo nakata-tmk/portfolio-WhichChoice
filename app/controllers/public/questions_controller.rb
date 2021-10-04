@@ -8,18 +8,21 @@ class Public::QuestionsController < ApplicationController
 
   def index
     @genres = Genre.all
-    if params[:genre_id].present?
+    if params[:sort].present? && params[:genre_id].present?
+      @genre = Genre.find(params[:genre_id])
+      questions = Question.sort(params[:sort]).where(genre_id: params[:genre_id])
+      @questions = Kaminari.paginate_array(questions).page(params[:page])
+    elsif params[:sort].present?
+      questions = Question.sort(params[:sort])
+      @questions = Kaminari.paginate_array(questions).page(params[:page])
+    elsif params[:genre_id].present?
       @genre = Genre.find(params[:genre_id])
       @questions = @genre.questions.page(params[:id])
-      @name = @genre.name
-      @count = @questions.count
     else
       @questions = Question.page(params[:page])
-      @name = "投稿"
-      @count = @questions.count
     end
-  
-
+    @genre.present? ? @name = @genre.name : @name = "投稿"
+    @sort_list = Question.sort_list
   end
 
   def show

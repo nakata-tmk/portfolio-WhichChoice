@@ -13,11 +13,19 @@
   <%= f.submit "検索" %>
 <% end %>
 
-<h2><%= @name + '一覧（全' + @count.to_s + '件）' %></h2>
+<%= form_with method: :get do |f| %>
+  <% if @sorted.present? %>
+    <%= f.select :sort, @sort_list, selected: @sorted, onChange: "javascript: this.form.submit();" %>
+  <% else %>
+    <%= f.select :sort, @sort_list, {}, onChange: "javascript: this.form.submit();" %>
+    <%= f.hidden_field :genre_id, :value => @genre&.id %>
+  <% end %>
+<% end %>
 
 <%= link_to "新規投稿", new_question_path %>
-<%= link_to "CSV出力", questions_path(format: :csv) %>
+<%= link_to "CSV出力", questions_path(format: :csv) %><br>
 
+<h2><%= @name + '一覧（全' + @questions.count.to_s + '件）' %></h2>
 <% @questions.each do |question| %>
   <%= attachment_image_tag question.user, :image, size: "50x50", fallback: "no_image.jpg" %>
   <%= question.user.name %>
@@ -28,5 +36,5 @@
   <%= question.body %>
   <%= Answer.where(question_id: question.id, answer: 0).count %>
   <%= Answer.where(question_id: question.id, answer: 1).count %>
-  <%= question.genre.name %>
+  <%= question.genre.name %><br>
 <% end %>
