@@ -1,0 +1,14 @@
+<h3>キーワード検索</h3>
+<%= form_with url:search_questions_path, local:true, method: :get do |f| %>
+  <%= f.text_field :keyword, placeholder: "キーワードを入力" %>
+  <%= f.submit "検索" %>
+<% end %>
+
+<h3>ジャンル一覧</h3>
+<% genres.each do |genre| %>
+  <p>
+    <%= link_to questions_path(genre_id: genre.id) do %>
+      <%= genre.name %>
+    <% end %>
+  </p>
+<% end %>

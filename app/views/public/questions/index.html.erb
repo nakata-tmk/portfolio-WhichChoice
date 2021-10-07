@@ -1,17 +1,4 @@
-<h3>ジャンル一覧</h3>
-<% @genres.each do |genre| %>
-  <p>
-    <%= link_to questions_path(genre_id: genre.id) do %>
-      <%= genre.name %>
-    <% end %>
-  </p>
-<% end %>
-
-<h3>キーワード検索</h3>
-<%= form_with url:search_questions_path, local:true, method: :get do |f| %>
-  <%= f.text_field :keyword, placeholder: "キーワードを入力" %>
-  <%= f.submit "検索" %>
-<% end %>
+<%= render partial: 'layouts/genre_search', locals: { genres: @genres } %>
 
 <%= form_with method: :get do |f| %>
   <% if @sorted.present? %>
