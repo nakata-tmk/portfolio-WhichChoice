@@ -1,42 +1,62 @@
-<h2>投稿一覧</h2>
+<div class="row">
+  <%= render partial: 'admin/genres/genre', locals: { genres: @genres } %>
 
-<h3>ジャンル一覧</h3>
-<% @genres.each do |genre| %>
-  <p>
-    <%= link_to questions_path(genre_id: genre.id) do %>
-      <%= genre.name %>
-    <% end %>
-  </p>
-<% end %>
+  <div class=col-md-9>
+    <div class="row">
+      <div class=col-md-7>
+        <h2><%= @name + '一覧（全' + @questions.count.to_s + '件）' %></h2>
+      </div>
 
-<h3>キーワード検索</h3>
-<%= form_with url:admin_search_path, local:true, method: :get do |f| %>
-  <%= f.text_field :keyword, placeholder: "キーワードを入力" %>
-  <%= f.submit "検索" %>
-<% end %>
+      <div class=col-md-5>
+        <div class="row text-right">
+          <div class=col-md-8>
+            <%= form_with method: :get do |f| %>
+              <% if @sorted.present? %>
+                <%= f.select :sort, @sort_list, selected: @sorted, onChange: "javascript: this.form.submit();" %>
+              <% else %>
+                <%= f.select :sort, @sort_list, {}, onChange: "javascript: this.form.submit();" %>
+                <%= f.hidden_field :genre_id, :value => @genre&.id %>
+              <% end %>
+            <% end %>
+          </div>
 
-<table>
-  <tr>
-    <th>投稿日</th>
-    <th>会員名</th>
-    <th>ジャンル</th>
-    <th>タイトル</th>
-  </tr>
+          <div class=col-md-4>
+            <%= link_to admin_top_path(format: :csv) do %>
+              <button type="button" class="btn btn-outline-primary btn-sm">CSV出力</button>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
 
-  <% @questions.each do |question| %>
-    <tr>
-      <td><%= question.created_at.strftime('%Y/%m/%d') %></td>
-      <td>
-        <%= attachment_image_tag question.user, :image, fallback: "no_image.jpg" %>
-        <br>
-        <%= question.user.name %>
-      </td>
-      <td><%= question.genre.name %></td>
-      <td>
-        <%= link_to admin_question_path(question) do %>
-          <%= question.object1 + '派 or ' + question.object2 + '派？' %>
+    <table class="table">
+      <thead class="thead-light">
+        <tr>
+          <th>投稿日</th>
+          <th>会員名</th>
+          <th>ジャンル</th>
+          <th>タイトル</th>
+        </tr>
+
+        <% @questions.each do |question| %>
+          <tr>
+            <td><%= question.created_at.strftime('%Y/%m/%d') %></td>
+            <td>
+              <%= link_to admin_user_path(question.user.id) do %>
+                <%= attachment_image_tag question.user, :image, size: "70x60", fallback: "noimage.jpg" %>
+              <% end %>
+              <br>
+              <%= question.user.name %>
+            </td>
+            <td><%= question.genre.name %></td>
+            <td>
+              <%= link_to admin_question_path(question) do %>
+                <%= question.object1 + '派 or ' + question.object2 + '派？' %>
+              <% end %>
+            </td>
+          </tr>
         <% end %>
-      </td>
-    </tr>
-  <% end %>
-</table>
+      </thead>
+    </table>
+  </div>
+</div>

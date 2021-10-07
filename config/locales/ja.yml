@@ -28,4 +28,16 @@ ja:
       genre: 'ジャンル'
     attributes:
       genre:
-        name: ジャンル名
+        name: 'ジャンル名'
+
+    models:
+      user: '会員'
+    attributes:
+      user:
+        name: '名前'
+        email: 'メールアドレス'
+        sex: '性別'
+        age: '年齢'
+        area: '地域'
+        image_id: '画像'
+

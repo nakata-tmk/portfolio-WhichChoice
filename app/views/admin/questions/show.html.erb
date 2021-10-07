@@ -1,4 +1,4 @@
-<%= attachment_image_tag @question.user, :image, size: "50x50", fallback: "no_image.jpg" %>
+<%= attachment_image_tag @question.user, :image, size: "70x60", fallback: "noimage.jpg" %>
 <%= @question.user.name %>
 <%= @question.created_at.strftime('%Y/%m/%d') %>
 
@@ -7,3 +7,30 @@
 <%= @question.genre.name %>
 
 <%= link_to "削除", admin_question_path(@question.id), method: :delete, "data-confirm" => "本当に削除しますか？" %>
+
+<div style="width:500px; height:300px;">
+<canvas id="myPieChart"></canvas>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.js"></script>
+<script>
+  var ctx = document.getElementById("myPieChart");
+  var myPieChart = new Chart(ctx, {
+    type: 'pie',
+    data: {
+      labels: ["<%=@question.object1 %>派", "<%= @question.object2 %>派"],
+      datasets: [{
+          backgroundColor: [
+              "#BB5179",
+              "#FAFF67"
+          ],
+          data: [<%= @counts_object1.to_s %>, <%= @counts_object2.to_s %>]
+      }]
+    },
+    options: {
+      title: {
+        display: true,
+        text: 'アンケート結果'
+      }
+    }
+  });
+  </script>
+</div>

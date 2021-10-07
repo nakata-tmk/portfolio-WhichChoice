@@ -1,10 +1,25 @@
 class Admin::HomesController < ApplicationController
   def top
-    @questions = Question.page(params[:page])
     @genres = Genre.all
+    if params[:sort].present? && params[:genre_id].present?
+      @genre = Genre.find(params[:genre_id])
+      questions = Question.sort(params[:sort]).where(genre_id: params[:genre_id])
+      @questions = Kaminari.paginate_array(questions).page(params[:page])
+    elsif params[:sort].present?
+      questions = Question.sort(params[:sort])
+      @questions = Kaminari.paginate_array(questions).page(params[:page])
+    elsif params[:genre_id].present?
+      @genre = Genre.find(params[:genre_id])
+      @questions = @genre.questions.page(params[:id])
+    else
+      @questions = Question.page(params[:page])
+    end
+    @genre.present? ? @name = @genre.name : @name = "投稿"
+    @sort_list = Question.sort_list
   end
-  
+
   def search
+    @genres = Genre.all
     @title = "「#{params[:keyword]}」の検索結果"
     if params[:keyword].present?
      @questions = Question.where(['object1 LIKE? OR object1 LIKE? OR body LIKE?',

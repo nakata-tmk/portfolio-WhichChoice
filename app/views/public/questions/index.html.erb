@@ -1,27 +1,61 @@
-<%= render partial: 'layouts/genre_search', locals: { genres: @genres } %>
+<div class="row">
+  <%= render partial: 'public/questions/genre', locals: { genres: @genres } %>
 
-<%= form_with method: :get do |f| %>
-  <% if @sorted.present? %>
-    <%= f.select :sort, @sort_list, selected: @sorted, onChange: "javascript: this.form.submit();" %>
-  <% else %>
-    <%= f.select :sort, @sort_list, {}, onChange: "javascript: this.form.submit();" %>
-    <%= f.hidden_field :genre_id, :value => @genre&.id %>
-  <% end %>
-<% end %>
+  <div class=col-md-9>
+    <div class="row">
+      <div class=col-md-7>
+        <h2><%= @name + '一覧（全' + @questions.count.to_s + '件）' %></h2>
+      </div>
 
-<%= link_to "新規投稿", new_question_path %>
-<%= link_to "CSV出力", questions_path(format: :csv) %><br>
+      <div class=col-md-5>
+        <div class="row text-right">
+          <div class=col-md-8>
+            <%= form_with method: :get do |f| %>
+              <% if @sorted.present? %>
+                <%= f.select :sort, @sort_list, selected: @sorted, onChange: "javascript: this.form.submit();" %>
+              <% else %>
+                <%= f.select :sort, @sort_list, {}, onChange: "javascript: this.form.submit();" %>
+                <%= f.hidden_field :genre_id, :value => @genre&.id %>
+              <% end %>
+            <% end %>
+          </div>
 
-<h2><%= @name + '一覧（全' + @questions.count.to_s + '件）' %></h2>
-<% @questions.each do |question| %>
-  <%= attachment_image_tag question.user, :image, size: "50x50", fallback: "no_image.jpg" %>
-  <%= question.user.name %>
-  <%= question.created_at.strftime('%Y/%m/%d') %>
-  <%= link_to question_path(question) do %>
-    <%= 'あなたは' + question.object1 + '派 or ' + question.object2 + '派？' %>
-  <% end %>
-  <%= question.body %>
-  <%= Answer.where(question_id: question.id, answer: 0).count %>
-  <%= Answer.where(question_id: question.id, answer: 1).count %>
-  <%= question.genre.name %><br>
-<% end %>
+          <div class=col-md-4>
+            <%= link_to new_question_path do %>
+              <button type="button" class="btn btn-outline-primary btn-sm">新規投稿</button>
+            <% end %>
+            <%= link_to questions_path(format: :csv) do %>
+              <button type="button" class="btn btn-outline-primary btn-sm">CSV出力</button>
+            <% end %>
+          </div>
+        </div>
+      </div>
+
+
+    <table class="table-borderless">
+      <% @questions.each do |question| %>
+        <tr>
+          <td><%= attachment_image_tag question.user, :image, size: "70x60", fallback: "noimage.jpg" %></td>
+          <td><%= question.user.name %></td>
+          <td><%= question.created_at.strftime('%Y/%m/%d') %></td>
+        </tr>
+        <tr>
+          <td colspan="3">
+            <%= link_to question_path(question) do %>
+              <%= 'あなたは' + question.object1 + '派 or ' + question.object2 + '派？' %>
+            <% end %>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="3"><%= question.body %></td>
+        </tr>
+        <tr>
+          <td><%= Answer.where(question_id: question.id, answer: 0).count %></td>
+          <td><%= Answer.where(question_id: question.id, answer: 1).count %></td>
+        </tr>
+        <tr>
+          <td><%= question.genre.name %></td>
+        </tr>
+      <% end %>
+    </table>
+  </div>

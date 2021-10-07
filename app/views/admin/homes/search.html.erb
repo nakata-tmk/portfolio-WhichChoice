@@ -1,13 +1,34 @@
-<h2><%= @title %></h2>
+<div class="row">
+  <%= render partial: 'admin/genres/genre', locals: { genres: @genres } %>
 
-<% @questions.each do |question| %>
-  <%= attachment_image_tag question.user, :image, size: "50x50", fallback: "no_image.jpg" %>
-  <%= question.user.name %>
-  <%= question.created_at.strftime('%Y/%m/%d') %>
+  <div class=col-md-9>
+    <h2><%= @title %></h2>
+    <table class="table">
+      <thead class="thead-light">
+        <tr>
+          <th>投稿日</th>
+          <th>会員名</th>
+          <th>ジャンル</th>
+          <th>タイトル</th>
+        </tr>
 
-  <%= link_to admin_question_path(question) do %>
-    <%= 'あなたは' + question.object1 + '派 or ' + question.object2 + '派？' %>
-  <% end %>
-  <%= question.body %>
-  <%= question.genre.name %>
-<% end %>
+        <% @questions.each do |question| %>
+          <tr>
+            <td><%= question.created_at.strftime('%Y/%m/%d') %></td>
+            <td>
+              <%= attachment_image_tag question.user, :image, size: "70x60", fallback: "noimage.jpg" %>
+              <br>
+              <%= question.user.name %>
+            </td>
+            <td><%= question.genre.name %></td>
+            <td>
+              <%= link_to admin_question_path(question) do %>
+                <%= question.object1 + '派 or ' + question.object2 + '派？' %>
+              <% end %>
+            </td>
+          </tr>
+        <% end %>
+      </thead>
+    </table>
+  </div>
+</div>

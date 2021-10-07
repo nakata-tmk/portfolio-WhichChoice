@@ -1,4 +1,4 @@
-<%= attachment_image_tag @question.user, :image, size: "50x50", fallback: "no_image.jpg" %>
+<%= attachment_image_tag @question.user, :image, size: "50x50", fallback: "noimage.jpg" %>
   <%= @question.user.name %>
   <%= @question.created_at.strftime('%Y/%m/%d') %>
 
@@ -10,11 +10,30 @@
   <%= @question.object1 + "派　　" + @counts_object1.to_s %>
   <%= @question.object2 + "派　　" + @counts_object2.to_s %>
 
-
+<br>
 <h3>回答ソート</h3>
-<p>男女別</p>
-  <%= User.sexes_i18n[:man] %>
-  <%= User.sexes_i18n[:woman] %>
+<p>男性</p>
+
+<p>紅茶</p>
+<p>コーヒー</p>
+
+<p>女性</p>
+<p>紅茶</p>
+<p>コーヒー</p>
+<hr>
+<div class="row">
+  <div class="col-md-6">
+    <p>男性</p>
+    <%= "#{@question.object1} / #{@answers[:a0][:man].count}" %>
+    <%= "#{@question.object2} / #{@answers[:a1][:man].count}" %>
+  </div>
+  <div class="col-md-6">
+    <p>女性</p>
+    <%= "#{@question.object1} / #{@answers[:a0][:women].count}" %>
+    <%= "#{@question.object2} / #{@answers[:a1][:women].count}" %>
+  </div>
+</div>
+
 <p>年齢別</p>
   <%= User.ages_i18n[:teens] %>
   <%= User.ages_i18n[:twenties] %>
@@ -88,7 +107,7 @@
 
 
     <% @question.comments.each do |comment| %>
-      <%= attachment_image_tag comment.user, :image, size: "50x50", fallback: "no_image.jpg" %>
+      <%= attachment_image_tag comment.user, :image, size: "50x50", fallback: "noimage.jpg" %>
       <%= comment.user.name %>
       <%= comment.created_at.strftime('%Y/%m/%d') %>
       <%= comment.body %>

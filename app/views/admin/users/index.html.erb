@@ -1,4 +1,4 @@
-<h4>会員一覧</h4>
+<h2>会員一覧</h2>
 <table class="table">
   <thead class="thead-light">
     <tr>
@@ -16,7 +16,7 @@
   <% @users.each do |user| %>
     <tr>
       <td><%= user.id %></td>
-      <td><%= attachment_image_tag user, :image, size: "50x50", fallback: "no_image.jpg" %></td>
+      <td><%= attachment_image_tag user, :image, size: "70x60", fallback: "noimage.jpg" %></td>
       <td>
         <%= link_to admin_user_path(user.id) do %>
           <%= user.name %>

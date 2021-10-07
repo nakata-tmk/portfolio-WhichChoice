@@ -16,3 +16,114 @@
 @import "bootstrap";
 @import 'font-awesome-sprockets';
 @import 'font-awesome';
+
+@font-face {
+  font-family: “uzura”;
+  src: url('/assets/uzura.ttf') format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: “azuki”;
+  src: url('/assets/azuki.ttf') format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+body {
+  font-family: “azuki”;
+  background-color: #fff;
+  color: #333;
+}
+
+header, footer {
+  font-family: “uzura”;
+}
+
+header button {
+  margin: 10px;
+}
+
+footer {
+  margin-top: 20px;
+}
+
+h1, h2, h3 {
+  font-family: “uzura”;
+}
+
+h3 {
+  font-size: 18px;
+}
+
+p {
+  line-height: 1em;
+}
+
+
+h1 .point-color {
+  color: #ffb3b3;
+}
+
+
+
+a:link {
+  color: #6495ed;
+  text-decoration: none;
+}
+
+a:visited {
+  color: #4b6fb3;
+  text-decoration: none;
+}
+
+a:hover {
+  color: #a6bfed;
+  text-decoration: none;
+}
+
+a:link h1{
+  color: black;
+  text-decoration: none;
+}
+
+a:visited h1{
+  color: black;
+  text-decoration: none;
+}
+
+a:hover h1{
+  color: gray;
+  text-decoration: none;
+}
+
+#notice {
+  text-align: left;
+  margin: 5px;
+  color: #3cb371;
+}
+
+#alert {
+  text-align: left;
+  margin: 5px;
+  color: #dc143c;
+}
+
+select {
+  width: 200px;
+  height: 30px;
+}
+
+label {
+  margin-bottom: 0px;
+  margin-top: 8px;
+}
+
+.table {
+  text-align: center;
+}
+
+.table-bordered {
+  text-align: left;
+}

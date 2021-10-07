@@ -1,17 +1,8 @@
-<% if model.errors.any? %>
-  <p>エラー</p>
-  <ul>
+<div id="alert">
+  <% if model.errors.any? %>
     <% model.errors.full_messages.each do |message| %>
-      <li><%= message %></li>
+      <p><%= message %></p>
     <% end %>
-  </ul>
-<% end %>
-
-<% if flash[:notice] %>
-  <p><%= flash[:notice] %></p>
-<% end %>
-
-<% if flash[:alert] %>
-  <p><%= flash[:alert] %></p>
-<% end %>
+  <% end %>
+</div>
 
