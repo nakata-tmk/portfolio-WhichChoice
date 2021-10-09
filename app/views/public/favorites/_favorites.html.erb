@@ -1,15 +1,17 @@
-<% if user_signed_in? %>
-  <% if question.favorited_by?(current_user) %>
-    <p>
-      <%= link_to question_favorites_path(question), method: :delete, remote: true do %>
-        ♥<%= question.favorites.count %> いいね
-      <% end %>
-    </p>
-    <% else %>
-    <p>
-      <%= link_to question_favorites_path(question), method: :post, remote: true do %>
-        ♡<%= question.favorites.count %> いいね
-      <% end %>
-    </p>
+<div class="mr-3">
+  <% if user_signed_in? %>
+    <% if question.favorited_by?(current_user) %>
+      <p>
+        <%= link_to question_favorites_path(question), method: :delete, remote: true do %>
+          いいね <i class="fas fa-thumbs-up"></i><%= question.favorites.count %>
+        <% end %>
+      </p>
+      <% else %>
+      <p>
+        <%= link_to question_favorites_path(question), method: :post, remote: true do %>
+          いいね <i class="far fa-thumbs-up"></i><%= question.favorites.count %>
+        <% end %>
+      </p>
+    <% end %>
   <% end %>
-<% end %>
+</div>

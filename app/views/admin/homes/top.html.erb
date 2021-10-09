@@ -3,28 +3,24 @@
 
   <div class=col-md-9>
     <div class="row">
-      <div class=col-md-7>
+      <div class=col-md-8>
         <h2><%= @name + '一覧（全' + @questions.count.to_s + '件）' %></h2>
       </div>
 
-      <div class=col-md-5>
+      <div class=col-md-4>
         <div class="row text-right">
-          <div class=col-md-8>
-            <%= form_with method: :get do |f| %>
-              <% if @sorted.present? %>
-                <%= f.select :sort, @sort_list, selected: @sorted, onChange: "javascript: this.form.submit();" %>
-              <% else %>
-                <%= f.select :sort, @sort_list, {}, onChange: "javascript: this.form.submit();" %>
-                <%= f.hidden_field :genre_id, :value => @genre&.id %>
-              <% end %>
+          <%= form_with method: :get do |f| %>
+            <% if @sorted.present? %>
+              <%= f.select :sort, @sort_list, selected: @sorted, onChange: "javascript: this.form.submit();" %>
+            <% else %>
+              <%= f.select :sort, @sort_list, {}, onChange: "javascript: this.form.submit();" %>
+              <%= f.hidden_field :genre_id, :value => @genre&.id %>
             <% end %>
-          </div>
+          <% end %>
 
-          <div class=col-md-4>
-            <%= link_to admin_top_path(format: :csv) do %>
-              <button type="button" class="btn btn-outline-primary btn-sm">CSV出力</button>
-            <% end %>
-          </div>
+          <%= link_to admin_top_path(format: :csv) do %>
+            <button type="button" class="btn btn-outline-primary btn-sm ml-3">CSV出力</button>
+          <% end %>
         </div>
       </div>
     </div>

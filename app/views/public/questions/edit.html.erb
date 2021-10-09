@@ -1,19 +1,31 @@
-<h2>アンケート編集</h2>
+<%= render partial: 'layouts/message', locals: { model: @question } %>
 
-<%= form_with model:@question, local:true do |f| %>
-  <%= f.label :object1, "質問項目1" %>
-  <%= f.text_field :object1 %>派
-
-  <%= f.label :object2, "質問項目2" %>
-  <%= f.text_field :object2 %>派
-
-  <%= f.label :select_genre, "ジャンル" %>
-  <%= f.select :genre_id, options_from_collection_for_select(Genre.all, :id, :name) %>
-
-  <%= f.label :body, "本文" %>
-  <%= f.text_area :body %>
-
-  <%= f.hidden_field :user_id, :value => current_user.id %>
-
-  <%= f.submit "編集" %>
-<% end %>
+<div class="row">
+  <div class="col-md-8">
+    <h2>アンケート編集</h2>
+    <table class="table-borderless">
+      <%= form_with model:@question, local:true do |f| %>
+        <tr>
+          <td><%= f.label :object1, "質問項目1" %></td>
+          <td><%= f.text_field :object1 %>派</td>
+        </tr>
+        <tr>
+          <td><%= f.label :object2, "質問項目2" %></td>
+          <td><%= f.text_field :object2 %>派</td>
+        </tr>
+        <tr>
+          <td><%= f.label :select_genre, "ジャンル" %></td>
+          <td><%= f.select :genre_id, options_from_collection_for_select(Genre.all, :id, :name) %></td>
+        </tr>
+        <tr>
+          <td><%= f.label :body, "本文" %></td>
+          <td><%= f.text_area :body, size: "60x5" %></td>
+        </tr>
+        <tr>
+          <td><%= f.hidden_field :user_id, :value => current_user.id %></td>
+          <td><%= f.submit "編集" %></td>
+        </tr>
+      <% end %>
+    </table>
+  </div>
+</div>

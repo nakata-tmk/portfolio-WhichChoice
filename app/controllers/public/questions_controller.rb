@@ -29,43 +29,85 @@ class Public::QuestionsController < ApplicationController
     @question = Question.find(params[:id])
     @answer = Answer.new
     @comment = Comment.new
-    # @users = User.select(:sex)
-    # @users1 = User.select(:sex).where(sex: 0).count
-    # @users2 = User.select(:sex).where(sex: 1).count
-    @counts_object1 = Answer.where(question_id: @question.id, answer: 0).count
-    @counts_object2 = Answer.where(question_id: @question.id, answer: 1).count
-    # binding.irb
-    # answers1 = Answer.where(question_id: @question.id, answer: 0) # Tea
-    # answers2 = Answer.where(question_id: @question.id, answer: 1) # Coffie
+    @answers0_all = Answer.where(question_id: @question.id, answer: 0)
+    @answers1_all = Answer.where(question_id: @question.id, answer: 1)
 
-    # answers2_man = []
-    # answers2_women = []
-
-    # answers2.each do |answer|
-    #   if answer.user.sex == 'man'
-    #     answers2_man << answer
-    #   else
-    #     answers2_women << answer
-    #   end
-    # end
-
-    @answers = {a0: {man: [], women: []}, a1: {man: [], women: []}}
+    @answers_sex = {a0: {man: [], woman: []}, a1: {man: [], woman: []}}
     (0..1).each do |num|
       tmp = Answer.where(question_id: @question.id, answer: num)
       tmp.each do |user|
-        if user.user == 'man'
-          @answers[:a0][:man] << user.user if num == 0
-          @answers[:a1][:man] << user.user if num == 1
+        if user.user.sex == 'man'
+          @answers_sex[:a0][:man] << user.user if num == 0
+          @answers_sex[:a1][:man] << user.user if num == 1
+
         else
-          @answers[:a0][:women] << user.user if num == 0
-          @answers[:a1][:women] << user.user if num == 1
+          @answers_sex[:a0][:woman] << user.user if num == 0
+          @answers_sex[:a1][:woman] << user.user if num == 1
+          @answers0_woman = @answers_sex[:a0][:woman]
+          @answers1_woman = @answers_sex[:a1][:woman]
         end
       end
     end
 
-    # binding.irb
+    @answers_age = {a0: {teens: [], twenties: [], thirties: [], forties: [], fifties: [], sixties: []},
+                    a1: {teens: [], twenties: [], thirties: [], forties: [], fifties: [], sixties: []}}
+    (0..1).each do |num|
+      tmp = Answer.where(question_id: @question.id, answer: num)
+      tmp.each do |user|
+        if user.user.age == 'teens'
+          @answers_age[:a0][:teens] << user.user if num == 0
+          @answers_age[:a1][:teens] << user.user if num == 1
+        elsif user.user == 'twenties'
+          @answers_age[:a0][:twenties] << user.user if num == 0
+          @answers_age[:a1][:twenties] << user.user if num == 1
+        elsif user.user == 'thirties'
+          @answers_age[:a0][:thirties] << user.user if num == 0
+          @answers_age[:a1][:thirties] << user.user if num == 1
+        elsif user.user == 'forties'
+          @answers_age[:a0][:forties] << user.user if num == 0
+          @answers_age[:a1][:forties] << user.user if num == 1
+        elsif user.user == 'fifties'
+          @answers_age[:a0][:fifties] << user.user if num == 0
+          @answers_age[:a1][:fifties] << user.user if num == 1
+        else
+          @answers_age[:a0][:sixties] << user.user if num == 0
+          @answers_age[:a1][:sixties] << user.user if num == 1
+        end
+      end
+    end
 
-  # byebug
+    @answers_area = {a0: {hokkaidou: [], touhoku: [], kantou: [], cyuubu: [], kansai: [], cyuugoku: [], shikoku: [], kyuusyuu: []},
+                    a1: {hokkaidou: [], touhoku: [], kantou: [], cyuubu: [], kansai: [], cyuugoku: [], shikoku: [], kyuusyuu: []}}
+    (0..1).each do |num|
+      tmp = Answer.where(question_id: @question.id, answer: num)
+      tmp.each do |user|
+        if user.user.area == 'hokkaidou'
+          @answers_area[:a0][:hokkaidou] << user.user if num == 0
+          @answers_area[:a1][:hokkaidou] << user.user if num == 1
+        elsif user.user.area == 'touhoku'
+          @answers_area[:a0][:touhoku] << user.user if num == 0
+          @answers_area[:a1][:touhoku] << user.user if num == 1
+        elsif user.user.area == 'kantou'
+          @answers_area[:a0][:kantou] << user.user if num == 0
+          @answers_area[:a1][:kantou] << user.user if num == 1
+        elsif user.user.area == 'cyuubu'
+          @answers_area[:a0][:cyuubu] << user.user if num == 0
+          @answers_area[:a1][:cyuubu] << user.user if num == 1
+        elsif user.user.area == 'kansai'
+          @answers_area[:a0][:kansai] << user.user if num == 0
+          @answers_area[:a1][:kansai] << user.user if num == 1
+        elsif user.user.area == 'cyuugoku'
+          @answers_area[:a0][:cyuugoku] << user.user if num == 0
+          @answers_area[:a1][:cyuugoku] << user.user if num == 1
+        elsif user.user.area == 'shikoku'
+          @answers_area[:a0][:shikoku] << user.user if num == 0
+          @answers_area[:a1][:shikoku] << user.user if num == 1
+        else
+          @answers_area[:a0][:kyuusyuu] << user.user if num == 0
+          @answers_area[:a1][:kyuusyuu] << user.user if num == 1
+        end
+      end
+    end
   end
 
   def new
@@ -103,6 +145,7 @@ class Public::QuestionsController < ApplicationController
   end
 
   def search
+    @genres = Genre.all
     @title = "「#{params[:keyword]}」の検索結果"
     if params[:keyword].present?
      @questions = Question.where(['object1 LIKE? OR object1 LIKE? OR body LIKE?',

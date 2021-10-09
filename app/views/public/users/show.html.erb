@@ -1,51 +1,70 @@
-<h2>マイページ</h2>
+<div class="row">
+  <div class="col-md-6">
+    <h2>マイページ</h2>
+    <%= attachment_image_tag @user, :image, size: "250x230", fallback: "noimage.jpg" %>
+    <table class="table table-bordered">
+      <thead class="thead-light">
+        <tr>
+          <th style="width: 30%">ID</th>
+          <td><%= @user.id %></td>
+        </tr>
+        <tr>
+          <th>氏名</th>
+          <td><%= @user.name %></td>
+        </tr>
+        <tr>
+          <th>メールアドレス</th>
+          <td><%= @user.email %></td>
+        </tr>
+        <tr>
+          <th>性別</th>
+          <td><%= @user.sex_i18n %></td>
+        </tr>
+        <tr>
+          <th>年齢</th>
+          <td><%= @user.age_i18n %></td>
+        </tr>
+        <tr>
+          <th>地域</th>
+          <td><%= @user.area_i18n %></td>
+        </tr>
+      </thead>
+    </table>
 
-<table>
-  <tr>
-    <th>名前</th>
-    <td><%= @user.name %></td>
-    <td><%= attachment_image_tag @user, :image, fallback: "no_image.jpg" %></td>
-  </tr>
-  <tr>
-    <th>メールアドレス</th>
-    <td><%= @user.email %></td>
-  </tr>
-  <tr>
-    <th>性別</th>
-    <td><%= @user.sex_i18n %></td>
-  </tr>
-  <tr>
-    <th>年齢</th>
-    <td><%= @user.age_i18n %></td>
-  </tr>
-  <tr>
-    <th>地域</th>
-    <td><%= @user.area_i18n %></td>
-  </tr>
-</table>
+    <%= link_to edit_users_path do %>
+      <button type="button" class="btn btn-outline-primary btn-sm">編集</button>
+    <% end %>
 
-<%= link_to "編集", edit_users_path %>
-<%= link_to "退会", leave_users_path %>
+    <%= link_to leave_users_path do %>
+      <button type="button" class="btn btn-outline-danger btn-sm">退会</button>
+    <% end %>
+  </div>
+</div>
 
-<table>
-  <tr>
-    <th>投稿日</th>
-    <th>ジャンル</th>
-    <th>タイトル</th>
-    <th>本文</th>
-  </tr>
+<div class="row mt-5">
+  <div class="col-md-8">
+    <h2>投稿一覧</h2>
+    <table class="table">
+      <thead class="thead-light">
+        <tr>
+          <th>投稿日</th>
+          <th>ジャンル</th>
+          <th>タイトル</th>
+        </tr>
 
-  <% @questions.each do |question| %>
-    <tr>
-      <td><%= question.created_at.strftime('%Y/%m/%d') %></td>
-      <td><%= question.genre.name %></td>
-      <td>
-        <%= link_to question_path(question) do %>
-          <%= 'あなたは' + question.object1 + '派 or ' + question.object2 + '派？' %>
+        <% @user.questions.each do |question| %>
+          <tr>
+            <td><%= question.created_at.strftime('%Y/%m/%d') %></td>
+            <td><%= question.genre.name %></td>
+            <td>
+              <%= link_to question_path(question) do %>
+                <%= question.object1 + '派 or ' + question.object2 + '派？' %>
+              <% end %>
+            </td>
+          </tr>
         <% end %>
-      </td>
-      <td><%= question.body %></td>
-    </tr>
-  <% end %>
-</table>
+      </thead>
+    </table>
+  </div>
+</div>
 

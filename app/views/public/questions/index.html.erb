@@ -3,59 +3,69 @@
 
   <div class=col-md-9>
     <div class="row">
-      <div class=col-md-7>
+      <div class=col-md-6>
         <h2><%= @name + '一覧（全' + @questions.count.to_s + '件）' %></h2>
       </div>
 
-      <div class=col-md-5>
+      <div class=col-md-6>
         <div class="row text-right">
-          <div class=col-md-8>
-            <%= form_with method: :get do |f| %>
-              <% if @sorted.present? %>
-                <%= f.select :sort, @sort_list, selected: @sorted, onChange: "javascript: this.form.submit();" %>
-              <% else %>
-                <%= f.select :sort, @sort_list, {}, onChange: "javascript: this.form.submit();" %>
-                <%= f.hidden_field :genre_id, :value => @genre&.id %>
-              <% end %>
+          <%= form_with method: :get do |f| %>
+            <% if @sorted.present? %>
+              <%= f.select :sort, @sort_list, selected: @sorted, onChange: "javascript: this.form.submit();" %>
+            <% else %>
+              <%= f.select :sort, @sort_list, {}, onChange: "javascript: this.form.submit();" %>
+              <%= f.hidden_field :genre_id, :value => @genre&.id %>
             <% end %>
-          </div>
+          <% end %>
 
-          <div class=col-md-4>
-            <%= link_to new_question_path do %>
-              <button type="button" class="btn btn-outline-primary btn-sm">新規投稿</button>
-            <% end %>
-            <%= link_to questions_path(format: :csv) do %>
-              <button type="button" class="btn btn-outline-primary btn-sm">CSV出力</button>
-            <% end %>
-          </div>
+          <%= link_to new_question_path do %>
+            <button type="button" class="btn btn-outline-primary btn-sm ml-3">新規投稿</button>
+          <% end %>
+          <%= link_to questions_path(format: :csv) do %>
+            <button type="button" class="btn btn-outline-primary btn-sm ml-3">CSV出力</button>
+          <% end %>
         </div>
       </div>
+    </div>
 
-
-    <table class="table-borderless">
-      <% @questions.each do |question| %>
+    <table class="table">
+      <thead class="thead-light">
         <tr>
-          <td><%= attachment_image_tag question.user, :image, size: "70x60", fallback: "noimage.jpg" %></td>
-          <td><%= question.user.name %></td>
-          <td><%= question.created_at.strftime('%Y/%m/%d') %></td>
+          <th>投稿日</th>
+          <th>投稿者</th>
+          <th>タイトル</th>
+          <th>投票結果</th>
+          <th>ジャンル</th>
+          <th>コメント<br>いいね</th>
         </tr>
-        <tr>
-          <td colspan="3">
-            <%= link_to question_path(question) do %>
-              <%= 'あなたは' + question.object1 + '派 or ' + question.object2 + '派？' %>
-            <% end %>
-          </td>
-        </tr>
-        <tr>
-          <td colspan="3"><%= question.body %></td>
-        </tr>
-        <tr>
-          <td><%= Answer.where(question_id: question.id, answer: 0).count %></td>
-          <td><%= Answer.where(question_id: question.id, answer: 1).count %></td>
-        </tr>
-        <tr>
-          <td><%= question.genre.name %></td>
-        </tr>
-      <% end %>
+        <% @questions.each do |question| %>
+          <tr>
+            <td><%= question.created_at.strftime('%Y/%m/%d') %></td>
+            <td>
+              <%= attachment_image_tag question.user, :image, size: "70x60", fallback: "noimage.jpg" %>
+              <br>
+              <%= question.user.name %>
+            </td>
+            <td>
+              <%= link_to question_path(question), class: "ml-3" do %>
+                <%= question.object1 + '派 or ' + question.object2 + '派？' %>
+              <% end %>
+            </td>
+            <td>
+              <%= question.object1 + '派　' + Answer.where(question_id: question.id, answer: 0).count.to_s %>
+              <br>
+              <%= question.object2 + '派　' + Answer.where(question_id: question.id, answer: 1).count.to_s %>
+            </td>
+            <td><%= question.genre.name %></td>
+            <td>
+              <i class="fas fa-comment"></i>
+              <%=question.comments.count %>
+              <br>
+              <i class="far fa-thumbs-up"></i>
+              <%=question.favorites.count %>
+            </td>
+          </tr>
+        <% end %>
+      </thead>
     </table>
   </div>

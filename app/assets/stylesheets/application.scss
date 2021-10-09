@@ -127,3 +127,39 @@ label {
 .table-bordered {
   text-align: left;
 }
+
+.top_image {
+  margin: 5px 5px 15px 5px;
+  width: 100%;
+  max-width: 100%;
+  height: 320px;
+  object-fit: cover;
+  object-position : 0% 55%;
+}
+
+.about_image {
+  margin: 10px 5px 15px 5px;
+  width: 70%;
+  max-width: 70%;
+  height: 280px;
+  object-fit: cover;
+  object-position : 0% 55%;
+}
+
+.btn-secondary {
+  background: #db9aaf;
+  border: #db9aaf;
+}
+
+.btn-secondary:hover {
+  background: #dbafbd;
+}
+
+.btn-info {
+  background: #6d94b5;
+  border: #6d94b5;
+}
+
+.btn-info:hover {
+  background: #7f9db5;
+}

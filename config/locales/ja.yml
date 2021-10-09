@@ -2,16 +2,16 @@ ja:
   enums:
     user:
       sex:
-        man: '男'
-        woman: '女'
+        man: '男性'
+        woman: '女性'
 
       age:
-        teens: '～10代'
+        teens: '10代未満'
         twenties: '20代'
         thirties: '30代'
         forties: '40代'
         fifties: '50代'
-        sixties: '60代～'
+        sixties: '60代以上'
 
       area:
         hokkaidou: '北海道'
@@ -40,4 +40,19 @@ ja:
         age: '年齢'
         area: '地域'
         image_id: '画像'
+
+    models:
+      question: 'アンケート'
+    attributes:
+      question:
+        genre_id: 'ジャンル名'
+        object1: '質問事項1'
+        object2: '質問事項2'
+        body: '本文'
+
+    models:
+      comment: 'アンケート'
+    attributes:
+      comment:
+        body: 'コメント文'
 

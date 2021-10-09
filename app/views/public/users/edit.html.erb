@@ -1,23 +1,39 @@
-<h3>会員情報編集</h3>
+<%= render partial: 'layouts/message', locals: { model: @user } %>
 
-<%= form_with model:@user, url:users_path, local:true do |f| %>
-  <%= f.label :name, "名前" %>
-  <%= f.text_field :name %>
-
-  <%= f.label :email, "メールアドレス" %>
-  <%= f.email_field :email %>
-
-  <%= f.label :image, "画像" %>
-  <%= f.attachment_field :image %>
-
-  <%= f.label :sex, "性別" %>
-  <%= f.select :sex, User.sexes.keys.map{|k| [I18n.t("enums.user.sex.#{k}"), k]} %>
-
-  <%= f.label :age, "年齢" %>
-  <%= f.select :age, User.ages.keys.map{|k| [I18n.t("enums.user.age.#{k}"), k]} %>
-
-  <%= f.label :area, "地域" %>
-  <%= f.select :area, User.areas.keys.map{|k| [I18n.t("enums.user.area.#{k}"), k]} %>
-
-  <%= f.submit "編集" %>
-<% end %>
+<div class="row">
+  <div class="col-md-7">
+    <h2>会員情報編集</h2>
+    <%= form_with model:@user, url:users_path, local:true do |f| %>
+      <table class="table table-borderless text-left">
+        <tr>
+          <td><%= f.label :name, "名前" %></td>
+          <td><%= f.text_field :name %></td>
+        </tr>
+        <tr>
+          <td><%= f.label :email, "メールアドレス" %></td>
+          <td><%= f.email_field :email %></td>
+        </tr>
+        <tr>
+          <td><%= f.label :image, "画像" %></td>
+          <td><%= f.attachment_field :image %></td>
+        </tr>
+        <tr>
+          <td><%= f.label :sex, "性別" %></td>
+          <td><%= f.select :sex, User.sexes.keys.map{|k| [I18n.t("enums.user.sex.#{k}"), k]} %></td>
+        </tr>
+        <tr>
+          <td><%= f.label :age, "年齢" %></td>
+          <td><%= f.select :age, User.ages.keys.map{|k| [I18n.t("enums.user.age.#{k}"), k]} %></td>
+        </tr>
+        <tr>
+          <td><%= f.label :area, "地域" %></td>
+          <td><%= f.select :area, User.areas.keys.map{|k| [I18n.t("enums.user.area.#{k}"), k]} %></td>
+        </tr>
+        <tr>
+          <td></td>
+          <td><%= f.submit "編集" %></td>
+        </tr>
+      </table>
+    <% end %>
+  </div>
+</div>

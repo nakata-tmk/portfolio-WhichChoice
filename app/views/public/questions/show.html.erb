@@ -1,95 +1,172 @@
-<%= attachment_image_tag @question.user, :image, size: "50x50", fallback: "noimage.jpg" %>
-  <%= @question.user.name %>
-  <%= @question.created_at.strftime('%Y/%m/%d') %>
-
-  <%= 'あなたは' + @question.object1 + '派 or ' + @question.object2 + '派？' %>
-  <%= @question.body %>
-  <%= @question.genre.name %>
-
-<h3>投票結果</h3>
-  <%= @question.object1 + "派　　" + @counts_object1.to_s %>
-  <%= @question.object2 + "派　　" + @counts_object2.to_s %>
-
-<br>
-<h3>回答ソート</h3>
-<p>男性</p>
-
-<p>紅茶</p>
-<p>コーヒー</p>
-
-<p>女性</p>
-<p>紅茶</p>
-<p>コーヒー</p>
-<hr>
 <div class="row">
-  <div class="col-md-6">
-    <p>男性</p>
-    <%= "#{@question.object1} / #{@answers[:a0][:man].count}" %>
-    <%= "#{@question.object2} / #{@answers[:a1][:man].count}" %>
-  </div>
-  <div class="col-md-6">
-    <p>女性</p>
-    <%= "#{@question.object1} / #{@answers[:a0][:women].count}" %>
-    <%= "#{@question.object2} / #{@answers[:a1][:women].count}" %>
-  </div>
-</div>
+  <div class="col-md-10">
+    <%= render partial: 'layouts/message', locals: { model: @answer, model: @comment } %>
 
-<p>年齢別</p>
-  <%= User.ages_i18n[:teens] %>
-  <%= User.ages_i18n[:twenties] %>
-  <%= User.ages_i18n[:thirties] %>
-  <%= User.ages_i18n[:forties] %>
-  <%= User.ages_i18n[:fifties] %>
-  <%= User.ages_i18n[:sixties] %>
-<p>地域別</p>
-  <%= User.areas_i18n[:hokkaidou] %>
-  <%= User.areas_i18n[:touhoku] %>
-  <%= User.areas_i18n[:kantou] %>
-  <%= User.areas_i18n[:cyuubu] %>
-  <%= User.areas_i18n[:kansai] %>
-  <%= User.areas_i18n[:cyuugoku] %>
-  <%= User.areas_i18n[:shikoku] %>
-  <%= User.areas_i18n[:kyuusyuu] %>
+    <%= attachment_image_tag @question.user, :image, size: "40x40", fallback: "noimage.jpg" %>
+    <%= @question.user.name %>
+    <%= @question.created_at.strftime('%Y/%m/%d') %>
+    <%= "＃#{@question.genre.name}" %>
 
-<div style="width:500px; height:300px;">
-<canvas id="myPieChart"></canvas>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.js"></script>
-<script>
-  var ctx = document.getElementById("myPieChart");
-  var myPieChart = new Chart(ctx, {
-    type: 'pie',
-    data: {
-      labels: ["<%=@question.object1 %>派", "<%= @question.object2 %>派"],
-      datasets: [{
-          backgroundColor: [
-              "#BB5179",
-              "#FAFF67"
-          ],
-          data: [<%= @counts_object1.to_s %>, <%= @counts_object2.to_s %>]
-      }]
-    },
-    options: {
-      title: {
-        display: true,
-        text: 'アンケート結果'
-      }
-    }
-  });
-  </script>
-</div>
+    <h2 class="ml-3">
+      <%= "あなたは#{@question.object1}派 or #{@question.object2}派？" %>
+    </h2>
+    <p class="mt-3 ml-5 mb-4"><%= @question.body %></p>
 
-  <% if @question.user == current_user %>
-    <%= link_to "編集", edit_question_path %>
-    <%= link_to "削除", question_path(@question.id), method: :delete, "data-confirm" => "本当に削除しますか？" %>
-  <% end %>
+    <div class="text-right">
+      <div id="favorite_<%= @question.id %>">
+        <%= render partial: 'public/favorites/favorites', locals: { question: @question } %>
+      </div>
 
-  <div id="favorite_<%= @question.id %>">
-    <%= render partial: 'public/favorites/favorites', locals: { question: @question } %>
-  </div>
+      <% if @question.user == current_user %>
+        <%= link_to "編集", edit_question_path %>
+        <%= link_to "削除", question_path(@question.id), method: :delete, "data-confirm" => "本当に削除しますか？", class: "mr-3" %>
+      <% end %>
+    </div>
 
+    <ul class="nav nav-tabs">
+      <li class="nav-item">
+        <a  href="#all" class="nav-link active" data-toggle="tab">全体</a>
+      </li>
+      <li class="nav-item">
+        <a  href="#sex" class="nav-link" data-toggle="tab">性別別</a>
+      </li>
+      <li class="nav-item">
+        <a  href="#age" class="nav-link" data-toggle="tab">年齢別</a>
+      </li>
+      <li class="nav-item">
+        <a  href="#area" class="nav-link" data-toggle="tab">地域別</a>
+      </li>
+    </ul>
 
-  <h3>投票</h3>
+    <div class="tab-content">
+      <div id="all" class="tab-pane active">
+        <p class="mt-3 ml-3">
+          <%= "#{@question.object1}派 #{@answers0_all.count}" %>
+          <%= "/ #{@question.object2}派 #{@answers1_all.count}" %>
+        </p>
+        <%= render partial: 'layouts/piechart', locals: { question: @question, answers0: @answers0_all, answers1: @answers1_all, chart_name: "all"} %>
+      </div>
 
+      <div id="sex" class="tab-pane">
+        <h3 class="mt-3 ml-3"><%= User.sexes_i18n[:man] %></h3>
+        <p class="mt-3 ml-3">
+          <%= "#{@question.object1} 派 #{@answers_sex[:a0][:man].count}" %>
+          <%= "/ #{@question.object2} 派 #{@answers_sex[:a1][:man].count}" %>
+        </p>
+        <%= render partial: 'layouts/piechart', locals: { question: @question, answers0: @answers_sex[:a0][:man], answers1: @answers_sex[:a1][:man], chart_name: "man"} %>
+
+        <h3 class="mt-3 ml-3"><%= User.sexes_i18n[:woman] %></h3>
+        <p class="mt-3 ml-3">
+          <%= "#{@question.object1} 派 #{@answers_sex[:a0][:woman].count}" %>
+          <%= "/ #{@question.object2} 派 #{@answers_sex[:a1][:woman].count}" %>
+        </p>
+        <%= render partial: 'layouts/piechart', locals: { question: @question, answers0: @answers_sex[:a0][:woman], answers1: @answers_sex[:a1][:woman], chart_name: "woman"} %>
+      </div>
+
+      <div id="age" class="tab-pane">
+        <h3 class="mt-3 ml-3"><%= User.ages_i18n[:teens] %></h3>
+        <p class="mt-3 ml-3">
+          <%= "#{@question.object1} 派 #{@answers_age[:a0][:teens].count}" %>
+          <%= "/ #{@question.object2} 派 #{@answers_age[:a1][:teens].count}" %>
+        </p>
+        <%= render partial: 'layouts/piechart', locals: { question: @question, answers0: @answers_age[:a0][:teens], answers1: @answers_age[:a1][:teens], chart_name: "teen"} %>
+
+        <h3 class="mt-3 ml-3"><%= User.ages_i18n[:twenties] %></h3>
+        <p class="mt-3 ml-3">
+          <%= "#{@question.object1} 派 #{@answers_age[:a0][:twenties].count}" %>
+          <%= "/ #{@question.object2} 派 #{@answers_age[:a1][:twenties].count}" %>
+        </p>
+        <%= render partial: 'layouts/piechart', locals: { question: @question, answers0: @answers_age[:a0][:twenties], answers1: @answers_age[:a1][:twenties], chart_name: "twenties"} %>
+
+        <h3 class="mt-3 ml-3"><%= User.ages_i18n[:thirties] %></h3>
+        <p class="mt-3 ml-3">
+          <%= "#{@question.object1} 派 #{@answers_age[:a0][:thirties].count}" %>
+          <%= "/ #{@question.object2} 派 #{@answers_age[:a1][:thirties].count}" %>
+        </p>
+        <%= render partial: 'layouts/piechart', locals: { question: @question, answers0: @answers_age[:a0][:thirties], answers1: @answers_age[:a1][:thirties], chart_name: "thirties"} %>
+
+        <h3 class="mt-3 ml-3"><%= User.ages_i18n[:forties] %></h3>
+        <p class="mt-3 ml-3">
+          <%= "#{@question.object1} 派 #{@answers_age[:a0][:forties].count}" %>
+          <%= "/ #{@question.object2} 派 #{@answers_age[:a1][:forties].count}" %>
+        </p>
+        <%= render partial: 'layouts/piechart', locals: { question: @question, answers0: @answers_age[:a0][:forties], answers1: @answers_age[:a1][:forties], chart_name: "forties"} %>
+
+        <h3 class="mt-3 ml-3"><%= User.ages_i18n[:fifties] %></h3>
+        <p class="mt-3 ml-3">
+          <%= "#{@question.object1} 派 #{@answers_age[:a0][:fifties].count}" %>
+          <%= "/ #{@question.object2} 派 #{@answers_age[:a1][:fifties].count}" %>
+        </p>
+        <%= render partial: 'layouts/piechart', locals: { question: @question, answers0: @answers_age[:a0][:fifties], answers1: @answers_age[:a1][:fifties], chart_name: "fifties"} %>
+
+        <h3 class="mt-3 ml-3"><%= User.ages_i18n[:sixties] %></h3>
+        <p class="mt-3 ml-3">
+          <%= "#{@question.object1} 派 #{@answers_age[:a0][:sixties].count}" %>
+          <%= "/ #{@question.object2} 派 #{@answers_age[:a1][:sixties].count}" %>
+        </p>
+        <%= render partial: 'layouts/piechart', locals: { question: @question, answers0: @answers_age[:a0][:sixties], answers1: @answers_age[:a1][:sixties], chart_name: "sixties"} %>
+      </div>
+
+      <div id="area" class="tab-pane">
+        <h3 class="mt-3 ml-3"><%= User.areas_i18n[:hokkaidou] %></h3>
+        <p class="mt-3 ml-3">
+          <%= "#{@question.object1} 派 #{@answers_area[:a0][:hokkaidou].count}" %>
+          <%= "/ #{@question.object2} 派 #{@answers_area[:a1][:hokkaidou].count}" %>
+        </p>
+        <%= render partial: 'layouts/piechart', locals: { question: @question, answers0: @answers_area[:a0][:hokkaidou], answers1: @answers_area[:a1][:hokkaidou], chart_name: "hokkaidou"} %>
+
+        <h3 class="mt-3 ml-3"><%= User.areas_i18n[:touhoku] %></h3>
+        <p class="mt-3 ml-3">
+          <%= "#{@question.object1} 派 #{@answers_area[:a0][:touhoku].count}" %>
+          <%= "/ #{@question.object2} 派 #{@answers_area[:a1][:touhoku].count}" %>
+        </p>
+        <%= render partial: 'layouts/piechart', locals: { question: @question, answers0: @answers_area[:a0][:touhoku], answers1: @answers_area[:a1][:touhoku], chart_name: "touhoku"} %>
+
+        <h3 class="mt-3 ml-3"><%= User.areas_i18n[:kantou] %></h3>
+        <p class="mt-3 ml-3">
+          <%= "#{@question.object1} 派 #{@answers_area[:a0][:kantou].count}" %>
+          <%= "/ #{@question.object2} 派 #{@answers_area[:a1][:kantou].count}" %>
+        </p>
+        <%= render partial: 'layouts/piechart', locals: { question: @question, answers0: @answers_area[:a0][:kantou], answers1: @answers_area[:a1][:kantou], chart_name: "kantou"} %>
+
+        <h3 class="mt-3 ml-3"><%= User.areas_i18n[:cyuubu] %></h3>
+        <p class="mt-3 ml-3">
+          <%= "#{@question.object1} 派 #{@answers_area[:a0][:cyuubu].count}" %>
+          <%= "/ #{@question.object2} 派 #{@answers_area[:a1][:cyuubu].count}" %>
+        </p>
+        <%= render partial: 'layouts/piechart', locals: { question: @question, answers0: @answers_area[:a0][:cyuubu], answers1: @answers_area[:a1][:cyuubu], chart_name: "cyuubu"} %>
+
+        <h3 class="mt-3 ml-3"><%= User.areas_i18n[:kansai] %></h3>
+        <p class="mt-3 ml-3">
+          <%= "#{@question.object1} 派 #{@answers_area[:a0][:kansai].count}" %>
+          <%= "/ #{@question.object2} 派 #{@answers_area[:a1][:kansai].count}" %>
+        </p>
+        <%= render partial: 'layouts/piechart', locals: { question: @question, answers0: @answers_area[:a0][:kansai], answers1: @answers_area[:a1][:kansai], chart_name: "kansai"} %>
+
+        <h3 class="mt-3 ml-3"><%= User.areas_i18n[:cyuugoku] %></h3>
+        <p class="mt-3 ml-3">
+          <%= "#{@question.object1} 派 #{@answers_area[:a0][:cyuugoku].count}" %>
+          <%= "/ #{@question.object2} 派 #{@answers_area[:a1][:cyuugoku].count}" %>
+        </p>
+        <%= render partial: 'layouts/piechart', locals: { question: @question, answers0: @answers_area[:a0][:cyuugoku], answers1: @answers_area[:a1][:cyuugoku], chart_name: "cyuugoku"} %>
+
+        <h3 class="mt-3 ml-3"><%= User.areas_i18n[:shikoku] %></h3>
+        <p class="mt-3 ml-3">
+          <%= "#{@question.object1} 派 #{@answers_area[:a0][:shikoku].count}" %>
+          <%= "/ #{@question.object2} 派 #{@answers_area[:a1][:shikoku].count}" %>
+        </p>
+        <%= render partial: 'layouts/piechart', locals: { question: @question, answers0: @answers_area[:a0][:shikoku], answers1: @answers_area[:a1][:shikoku], chart_name: "shikoku"} %>
+
+        <h3 class="mt-3 ml-3"><%= User.areas_i18n[:kyuusyuu] %></h3>
+        <p class="mt-3 ml-3">
+          <%= "#{@question.object1} 派 #{@answers_area[:a0][:kyuusyuu].count}" %>
+          <%= "/ #{@question.object2} 派 #{@answers_area[:a1][:kyuusyuu].count}" %>
+        </p>
+        <%= render partial: 'layouts/piechart', locals: { question: @question, answers0: @answers_area[:a0][:kyuusyuu], answers1: @answers_area[:a1][:kyuusyuu], chart_name: "kyuusyuu"} %>
+      </div>
+    </div>
+
+    <h2>投票</h2>
       <%= form_with model:@answer, url:answer_path, local:true do |f| %>
         <%= f.radio_button :answer, 0 %>
         <%= f.label :answer, @question.object1 + "派" %>
@@ -98,21 +175,32 @@
         <%= f.hidden_field :question_id, :value => @question.id %>
         <%= f.submit "投票" %>
       <% end %>
+  </div>
+</div>
 
-  <h3>コメント</h3>
+<div class="row">
+  <div class="col-md-8">
+    <h3 class="mt-3">コメント<i class="fas fa-comment"></i><%=@question.comments.count %></h3>
     <%= form_with model: [@question, @comment], local:true do |f| %>
-      <%= f.text_area :body, placeholder: "コメントを入力" %>
+      <%= f.text_area :body, placeholder: "コメントを入力", size: "40x3" %>
       <%= f.submit "コメントする" %>
     <% end %>
 
+    <table class="table-borderless text-left">
+      <% @question.comments.each do |comment| %>
+        <tr>
+          <td><%= attachment_image_tag comment.user, :image, size: "40x40", fallback: "noimage.jpg" %></td>
+          <td><p class="ml-3 mt-3"><%= comment.user.name %></p></td>
+          <td><p class="ml-3 mt-3"><%= comment.created_at.strftime('%Y/%m/%d') %></p></td>
+          <td><p class="ml-3 mt-3"><%= comment.body %></p></td>
+          <td>
+            <% if comment.user == current_user %>
+              <%= link_to "削除", question_comment_path(comment.question, comment), method: :delete, "data-confirm" => "本当に削除しますか？", class: "ml-3" %>
+            <% end %>
+          </td>
+        </tr>
+       <% end %>
+    </table>
 
-    <% @question.comments.each do |comment| %>
-      <%= attachment_image_tag comment.user, :image, size: "50x50", fallback: "noimage.jpg" %>
-      <%= comment.user.name %>
-      <%= comment.created_at.strftime('%Y/%m/%d') %>
-      <%= comment.body %>
-      <% if comment.user == current_user %>
-        <%= link_to "削除", question_comment_path(comment.question, comment), method: :delete, "data-confirm" => "本当に削除しますか？"  %>
-      <% end %>
-    <% end %>
-
+  </div>
+</div>

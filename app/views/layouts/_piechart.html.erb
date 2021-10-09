@@ -1,0 +1,21 @@
+<div style="width:500px; height:300px;">
+  <canvas id="<%=chart_name %>PieChart"></canvas>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.js"></script>
+  <script>
+    var ctx = document.getElementById("<%=chart_name %>PieChart");
+    var myPieChart = new Chart(ctx, {
+      type: 'pie',
+      data: {
+        labels: ["<%=question.object1 %>派", "<%= question.object2 %>派"],
+        datasets: [{
+            backgroundColor: [
+                "#6495ed",
+                "#ffe4e1"
+            ],
+            data: [<%= answers0.count %>, <%= answers1.count %>]
+        }]
+      },
+    });
+  </script>
+</div>
+
