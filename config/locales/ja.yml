@@ -24,15 +24,10 @@ ja:
         kyuusyuu: '九州'
 
   activerecord:
-    models:
-      genre: 'ジャンル'
     attributes:
       genre:
         name: 'ジャンル名'
 
-    models:
-      user: '会員'
-    attributes:
       user:
         name: '名前'
         email: 'メールアドレス'
@@ -41,18 +36,15 @@ ja:
         area: '地域'
         image_id: '画像'
 
-    models:
-      question: 'アンケート'
-    attributes:
       question:
         genre_id: 'ジャンル名'
         object1: '質問事項1'
         object2: '質問事項2'
         body: '本文'
 
-    models:
-      comment: 'コメント'
-    attributes:
       comment:
         body: 'コメント文'
+
+      admin:
+        email: 'メールアドレス'
 
