@@ -1,9 +1,8 @@
 <%= render partial: 'layouts/message', locals: { model: @genre } %>
 
 <div class="row">
-  <div class="col-5">
+  <div class="col-md-7">
     <h2>ジャンル一覧</h2>
-
     <%= form_with model: [:admin, @genre], local:true do |f| %>
       <table class="table table-borderless">
         <tr>
@@ -17,20 +16,22 @@
 </div>
 
 <div class="row">
-  <div class="col-6">
-    <table class="table">
-      <thead class="thead-light">
-        <tr>
-          <th>ジャンル名</th>
-          <th></th>
-        </tr>
-        <% @genres.each do |genre| %>
+  <div class="col-md-6">
+    <div class="table-responsive-md">
+      <table class="table">
+        <thead class="thead-light">
           <tr>
-            <td><%= genre.name %></td>
-            <td><%= link_to "編集", edit_admin_genre_path(genre.id) %></td>
+            <th>ジャンル名</th>
+            <th></th>
           </tr>
-        <% end %>
-      </thead>
-    </table>
+          <% @genres.each do |genre| %>
+            <tr>
+              <td><%= genre.name %></td>
+              <td><%= link_to "編集", edit_admin_genre_path(genre.id) %></td>
+            </tr>
+          <% end %>
+        </thead>
+      </table>
+    </div>
   </div>
 </div>

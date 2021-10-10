@@ -3,7 +3,7 @@
     <%= attachment_image_tag @question.user, :image, size: "40x40", fallback: "noimage.jpg" %>
     <%= @question.user.name %>
     <%= @question.created_at.strftime('%Y/%m/%d') %>
-    <%= "＃#{@question.genre.name}" %>
+    <span class="green"><%= "＃#{@question.genre.name}" %></span>
 
     <h2 class="ml-3">
       <%= "あなたは#{@question.object1}派 or #{@question.object2}派？" %>
@@ -156,5 +156,22 @@
         <%= render partial: 'layouts/piechart', locals: { question: @question, answers0: @answers_area[:a0][:kyuusyuu], answers1: @answers_area[:a1][:kyuusyuu], chart_name: "kyuusyuu"} %>
       </div>
     </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-8">
+    <h3 class="mt-3">いいね<i class="far fa-thumbs-up"></i><%=@question.favorites.count %></h3>
+    <h3>コメント<i class="fas fa-comment"></i><%=@question.comments.count %></h3>
+    <table class="table-borderless text-left">
+      <% @question.comments.each do |comment| %>
+        <tr>
+          <td><%= attachment_image_tag comment.user, :image, size: "40x40", fallback: "noimage.jpg" %></td>
+          <td><p class="ml-3 mt-3"><%= comment.user.name %></p></td>
+          <td><p class="ml-3 mt-3"><%= comment.created_at.strftime('%Y/%m/%d') %></p></td>
+          <td><p class="ml-3 mt-3"><%= comment.body %></p></td>
+        </tr>
+       <% end %>
+    </table>
   </div>
 </div>

@@ -12,76 +12,110 @@
 
   <body>
     <header>
-      <nav class="navbar navbar-expand-lg navbar-light">
-        <div class="container">
-          <%= link_to root_path do %>
-            <h1>あなたは<span class="point-color">どっち</span>派？？</h1>
-          <% end %>
-
-          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-
-          <div class="text-right">
-            <div class="collapse navbar-collapse" id="navbarNavDropdown">
-              <% if admin_admin_signed_in? %>
-                <%= link_to admin_users_path do %>
-                  <button type="button" class="btn btn-light">会員一覧</button>
-                <% end %>
-                <%= link_to admin_top_path do %>
-                  <button type="button" class="btn btn-light">投稿一覧</button>
-                <% end %>
-                <%= link_to admin_genres_path do %>
-                  <button type="button" class="btn btn-light">ジャンル一覧</button>
-                <% end %>
-                <%= link_to destroy_admin_admin_session_path, method: :delete do %>
-                  <button type="button" class="btn btn-light">ログアウト</button>
-                <% end %>
-              <% elsif user_signed_in? %>
-                <%= link_to questions_path do %>
-                  <button type="button" class="btn btn-light">投稿一覧</button>
-                <% end %>
-                <%= link_to users_path do %>
-                  <button type="button" class="btn btn-light">マイページ</button>
-                <% end %>
-                <%= link_to destroy_user_session_path, method: :delete do %>
-                  <button type="button" class="btn btn-light">ログアウト</button>
-                <% end %>
-              <% else %>
-                <%= link_to about_path do %>
-                  <button type="button" class="btn btn-light">About</button>
-                <% end %>
-                <%= link_to questions_path do %>
-                  <button type="button" class="btn btn-light">投稿一覧</button>
-                <% end %>
-                <%= link_to new_user_registration_path do %>
-                  <button type="button" class="btn btn-light">新規投稿</button>
-                <% end %>
-                <%= link_to new_user_session_path do %>
-                  <button type="button" class="btn btn-light">ログイン</button>
-                <% end %>
-                <%= link_to users_guest_sign_in_path, method: :post do %>
-                  <button type="button" class="btn btn-light">ゲストログイン</button>
-                <% end %>
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12">
+            <nav class="navbar navbar-expand-lg navbar-light">
+              <%= link_to root_path,class: "navbar-brand" do %>
+                <%= image_tag "title.jpg", class: "title_image" %>
               <% end %>
-            </div>
+
+              <div class="text-right">
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                  <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                  <ul class="navbar-nav ml-auto">
+                    <% if admin_admin_signed_in? %>
+                      <li class="nav-item active">
+                        <%= link_to admin_users_path do %>
+                          <button type="button" class="btn btn-light">会員一覧</button>
+                        <% end %>
+                      </li>
+                      <li class="nav-item">
+                        <%= link_to admin_top_path do %>
+                          <button type="button" class="btn btn-light">アンケート一覧</button>
+                        <% end %>
+                      </li>
+                      <li class="nav-item">
+                        <%= link_to admin_genres_path do %>
+                          <button type="button" class="btn btn-light">ジャンル一覧</button>
+                        <% end %>
+                      </li>
+                      <li class="nav-item">
+                        <%= link_to destroy_admin_admin_session_path, method: :delete do %>
+                          <button type="button" class="btn btn-light">ログアウト</button>
+                        <% end %>
+                      </li>
+                    <% elsif user_signed_in? %>
+                      <li class="nav-item">
+                        <%= link_to questions_path do %>
+                          <button type="button" class="btn btn-light">アンケート</button>
+                        <% end %>
+                      </li>
+                      <li class="nav-item">
+                        <%= link_to users_path do %>
+                          <button type="button" class="btn btn-light">マイページ</button>
+                        <% end %>
+                      </li>
+                      <li class="nav-item">
+                        <%= link_to destroy_user_session_path, method: :delete do %>
+                          <button type="button" class="btn btn-light">ログアウト</button>
+                        <% end %>
+                      </li>
+                    <% else %>
+                      <li class="nav-item">
+                        <%= link_to about_path do %>
+                          <button type="button" class="btn btn-light">About</button>
+                        <% end %>
+                        </li>
+                      <li class="nav-item">
+                        <%= link_to questions_path do %>
+                          <button type="button" class="btn btn-light">アンケート</button>
+                        <% end %>
+                      </li>
+                      <li class="nav-item">
+                        <%= link_to new_user_registration_path do %>
+                          <button type="button" class="btn btn-light">登録</button>
+                        <% end %>
+                      </li>
+                      <li class="nav-item">
+                        <%= link_to new_user_session_path do %>
+                          <button type="button" class="btn btn-light">ログイン</button>
+                        <% end %>
+                      </li>
+                      <li class="nav-item">
+                        <%= link_to users_guest_sign_in_path, method: :post do %>
+                          <button type="button" class="btn btn-light">ゲスト</button>
+                        <% end %>
+                      </li>
+                    <% end %>
+                  </ul>
+                </div>
+              </div>
+            </nav>
           </div>
         </div>
-      </nav>
+      </div>
     </header>
 
     <main>
       <div class="container mt-3">
-        <div id="notice">
-          <% if flash[:notice] %>
-            <p><%= flash[:notice] %></p>
-          <% end %>
-        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <div id="notice">
+              <% if flash[:notice] %>
+                <p class="ml-5"><%= flash[:notice] %></p>
+              <% end %>
+            </div>
 
-        <div id="alert">
-          <% if flash[:alert] %>
-            <p><%= flash[:alert] %></p>
-          <% end %>
+            <div id="alert">
+              <% if flash[:alert] %>
+                <p class="ml-5"><%= flash[:alert] %></p>
+              <% end %>
+            </div>
+          </div>
         </div>
 
         <%= yield %>
@@ -89,8 +123,12 @@
     </main>
 
     <footer>
-      <div class="container text-center">
-        <p>(c) 2021 Which choice</p>
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-12">
+            <p class="text-center mt-5">(c) 2021 Which choice</p>
+          </div>
+        </div>
       </div>
     </footer>
   </body>

@@ -11,7 +11,7 @@
     </div>
     <div class="card-body">
       <% genres.each do |genre| %>
-        <%= link_to questions_path(genre_id: genre.id) do %>
+        <%= link_to admin_top_path(genre_id: genre.id) do %>
           <p class="ml-3"><%= genre.name %></p>
         <% end %>
       <% end %>

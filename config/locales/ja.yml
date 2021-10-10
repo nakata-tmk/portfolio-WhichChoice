@@ -51,7 +51,7 @@ ja:
         body: '本文'
 
     models:
-      comment: 'アンケート'
+      comment: 'コメント'
     attributes:
       comment:
         body: 'コメント文'

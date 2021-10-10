@@ -3,8 +3,8 @@
 <div class="row">
   <div class="col-md-8">
     <h2>アンケート新規投稿</h2>
-    <table class="table-borderless">
-      <%= form_with model:@question, local:true do |f| %>
+    <%= form_with model:@question, local:true do |f| %>
+      <table class="table-borderless">
         <tr>
           <td><%= f.label :object1, "質問項目1" %></td>
           <td><%= f.text_field :object1 %>派</td>
@@ -25,7 +25,7 @@
           <td><%= f.hidden_field :user_id, :value => current_user.id %></td>
           <td><%= f.submit "投稿" %></td>
         </tr>
-      <% end %>
-    </table>
+      </table>
+    <% end %>
   </div>
 </div>

@@ -12,7 +12,7 @@ class Admin::HomesController < ApplicationController
       @genre = Genre.find(params[:genre_id])
       @questions = @genre.questions.page(params[:id])
     else
-      @questions = Question.page(params[:page])
+      @questions = Question.page(params[:page]).order(created_at: :desc)
     end
     @genre.present? ? @name = @genre.name : @name = "投稿"
     @sort_list = Question.sort_list

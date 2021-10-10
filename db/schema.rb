@@ -74,7 +74,7 @@ ActiveRecord::Schema.define(version: 2021_09_25_061745) do
     t.integer "sex"
     t.integer "age"
     t.integer "area"
-    t.integer "image_id"
+    t.string "image_id"
     t.boolean "is_active", default: true
     t.datetime "remember_updated_at"
     t.datetime "created_at", null: false

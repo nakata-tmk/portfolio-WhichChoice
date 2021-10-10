@@ -5,42 +5,40 @@
     <h2><%= @title %></h2>
 
     <table class="table">
-      <thead class="thead-light">
+      <tr>
+        <th>投稿日</th>
+        <th>投稿者</th>
+        <th>タイトル</th>
+        <th>投票結果</th>
+        <th>ジャンル</th>
+        <th>コメント<br>いいね</th>
+      </tr>
+      <% @questions.each do |question| %>
         <tr>
-          <th>投稿日</th>
-          <th>投稿者</th>
-          <th>タイトル</th>
-          <th>投票結果</th>
-          <th>ジャンル</th>
-          <th>コメント<br>いいね</th>
+          <td><%= question.created_at.strftime('%Y/%m/%d') %></td>
+          <td>
+            <%= attachment_image_tag question.user, :image, size: "70x60", fallback: "noimage.jpg" %>
+            <br>
+            <%= question.user.name %>
+          </td>
+          <td>
+            <%= link_to question_path(question), class: "ml-3" do %>
+              <%= question.object1 + '派 or ' + question.object2 + '派？' %>
+            <% end %>
+          </td>
+          <td>
+            <%= question.object1 + '派　' + Answer.where(question_id: question.id, answer: 0).count.to_s %>
+            <br>
+            <%= question.object2 + '派　' + Answer.where(question_id: question.id, answer: 1).count.to_s %>
+          </td>
+          <td><%= question.genre.name %></td>
+          <td>
+            <%= 'コメント' + question.comments.count.to_s %>
+            <br>
+            <%= 'いいね' + question.favorites.count.to_s %>
+          </td>
         </tr>
-        <% @questions.each do |question| %>
-          <tr>
-            <td><%= question.created_at.strftime('%Y/%m/%d') %></td>
-            <td>
-              <%= attachment_image_tag question.user, :image, size: "70x60", fallback: "noimage.jpg" %>
-              <br>
-              <%= question.user.name %>
-            </td>
-            <td>
-              <%= link_to question_path(question), class: "ml-3" do %>
-                <%= question.object1 + '派 or ' + question.object2 + '派？' %>
-              <% end %>
-            </td>
-            <td>
-              <%= question.object1 + '派　' + Answer.where(question_id: question.id, answer: 0).count.to_s %>
-              <br>
-              <%= question.object2 + '派　' + Answer.where(question_id: question.id, answer: 1).count.to_s %>
-            </td>
-            <td><%= question.genre.name %></td>
-            <td>
-              <%= 'コメント' + question.comments.count.to_s %>
-              <br>
-              <%= 'いいね' + question.favorites.count.to_s %>
-            </td>
-          </tr>
-        <% end %>
-      </thead>
+      <% end %>
     </table>
   </div>
 </div>

@@ -4,27 +4,43 @@
   <div class=col-md-9>
     <h2><%= @title %></h2>
     <table class="table">
-      <thead class="thead-light">
+      <thead class="thead">
         <tr>
           <th>投稿日</th>
-          <th>会員名</th>
-          <th>ジャンル</th>
+          <th>投稿者</th>
           <th>タイトル</th>
+          <th>投票結果</th>
+          <th>ジャンル</th>
+          <th>コメント<br>いいね</th>
         </tr>
 
         <% @questions.each do |question| %>
           <tr>
             <td><%= question.created_at.strftime('%Y/%m/%d') %></td>
             <td>
-              <%= attachment_image_tag question.user, :image, size: "70x60", fallback: "noimage.jpg" %>
+              <%= link_to admin_user_path(question.user.id) do %>
+                <%= attachment_image_tag question.user, :image, size: "70x60", fallback: "noimage.jpg" %>
+              <% end %>
               <br>
               <%= question.user.name %>
             </td>
-            <td><%= question.genre.name %></td>
             <td>
               <%= link_to admin_question_path(question) do %>
                 <%= question.object1 + '派 or ' + question.object2 + '派？' %>
               <% end %>
+            </td>
+            <td>
+              <%= question.object1 + '派　' + Answer.where(question_id: question.id, answer: 0).count.to_s %>
+              <br>
+              <%= question.object2 + '派　' + Answer.where(question_id: question.id, answer: 1).count.to_s %>
+            </td>
+            <td><%= question.genre.name %></td>
+            <td>
+              <i class="fas fa-comment"></i>
+              <%=question.comments.count %>
+              <br>
+              <i class="far fa-thumbs-up"></i>
+              <%=question.favorites.count %>
             </td>
           </tr>
         <% end %>

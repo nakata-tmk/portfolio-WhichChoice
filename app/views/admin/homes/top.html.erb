@@ -3,12 +3,12 @@
 
   <div class=col-md-9>
     <div class="row">
-      <div class=col-md-8>
+      <div class=col-md-6>
         <h2><%= @name + '一覧（全' + @questions.count.to_s + '件）' %></h2>
       </div>
 
-      <div class=col-md-4>
-        <div class="row text-right">
+      <div class=col-md-6>
+        <div class="row text-right ml-3">
           <%= form_with method: :get do |f| %>
             <% if @sorted.present? %>
               <%= f.select :sort, @sort_list, selected: @sorted, onChange: "javascript: this.form.submit();" %>
@@ -25,13 +25,15 @@
       </div>
     </div>
 
-    <table class="table">
-      <thead class="thead-light">
+    <div class="table-responsive-md">
+      <table class="table">
         <tr>
           <th>投稿日</th>
-          <th>会員名</th>
-          <th>ジャンル</th>
+          <th>投稿者</th>
           <th>タイトル</th>
+          <th>投票結果</th>
+          <th>ジャンル</th>
+          <th>コメント<br>いいね</th>
         </tr>
 
         <% @questions.each do |question| %>
@@ -44,15 +46,27 @@
               <br>
               <%= question.user.name %>
             </td>
-            <td><%= question.genre.name %></td>
             <td>
               <%= link_to admin_question_path(question) do %>
                 <%= question.object1 + '派 or ' + question.object2 + '派？' %>
               <% end %>
             </td>
+            <td>
+              <%= question.object1 + '派　' + Answer.where(question_id: question.id, answer: 0).count.to_s %>
+              <br>
+              <%= question.object2 + '派　' + Answer.where(question_id: question.id, answer: 1).count.to_s %>
+            </td>
+            <td><%= question.genre.name %></td>
+            <td>
+              <i class="fas fa-comment"></i>
+              <%=question.comments.count %>
+              <br>
+              <i class="far fa-thumbs-up"></i>
+              <%=question.favorites.count %>
+            </td>
           </tr>
         <% end %>
-      </thead>
-    </table>
+      </table>
+    </div>
   </div>
 </div>

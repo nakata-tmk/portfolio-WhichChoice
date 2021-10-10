@@ -2,10 +2,12 @@
   <div class="col-md-10">
     <%= render partial: 'layouts/message', locals: { model: @answer, model: @comment } %>
 
-    <%= attachment_image_tag @question.user, :image, size: "40x40", fallback: "noimage.jpg" %>
-    <%= @question.user.name %>
-    <%= @question.created_at.strftime('%Y/%m/%d') %>
-    <%= "＃#{@question.genre.name}" %>
+    <p>
+      <%= attachment_image_tag @question.user, :image, size: "40x40", fallback: "noimage.jpg" %>
+      <%= @question.user.name %>
+      <%= @question.created_at.strftime('%Y/%m/%d') %>
+      <span class="green"><%= "＃#{@question.genre.name}" %></span>
+    </p>
 
     <h2 class="ml-3">
       <%= "あなたは#{@question.object1}派 or #{@question.object2}派？" %>
@@ -169,9 +171,9 @@
     <h2>投票</h2>
       <%= form_with model:@answer, url:answer_path, local:true do |f| %>
         <%= f.radio_button :answer, 0 %>
-        <%= f.label :answer, @question.object1 + "派" %>
+        <%= f.label :answer, @question.object1 + "派", class: "mr-5" %>
         <%= f.radio_button :answer, 1 %>
-        <%= f.label :answer, @question.object2 + "派" %>
+        <%= f.label :answer, @question.object2 + "派", class: "mr-5"%>
         <%= f.hidden_field :question_id, :value => @question.id %>
         <%= f.submit "投票" %>
       <% end %>

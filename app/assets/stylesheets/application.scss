@@ -32,7 +32,6 @@
 }
 
 body {
-  font-family: “azuki”;
   background-color: #fff;
   color: #333;
 }
@@ -42,15 +41,20 @@ header, footer {
 }
 
 header button {
-  margin: 10px;
+  margin: 5px;
 }
 
 footer {
   margin-top: 20px;
 }
 
+h1,h2,h3,a,ul,li,p,.table,label,button {
+  font-family: “azuki”;
+}
+
 h1, h2, h3 {
   font-family: “uzura”;
+  margin-top: 3px;
 }
 
 h3 {
@@ -61,12 +65,18 @@ p {
   line-height: 1em;
 }
 
-
-h1 .point-color {
-  color: #ffb3b3;
+ul {
+  list-style-type: none;
+  text-align: center;
+	margin-left: -10px;
+	letter-spacing: -.4em;
 }
 
-
+li {
+  display: inline-block;
+	margin-left: 10px;
+	letter-spacing: normal;
+}
 
 a:link {
   color: #6495ed;
@@ -100,13 +110,11 @@ a:hover h1{
 
 #notice {
   text-align: left;
-  margin: 5px;
   color: #3cb371;
 }
 
 #alert {
   text-align: left;
-  margin: 5px;
   color: #dc143c;
 }
 
@@ -122,17 +130,31 @@ label {
 
 .table {
   text-align: center;
+  margin-top: 3px;
 }
 
 .table-bordered {
   text-align: left;
 }
 
-.top_image {
-  margin: 5px 5px 15px 5px;
+th {
+  vertical-align: center;
+}
+
+.title_image {
+  margin: 5px;
   width: 100%;
   max-width: 100%;
-  height: 320px;
+  height: auto;
+  object-fit: cover;
+  object-position : 0% 55%;
+}
+
+.top_image {
+  margin: 0px 5px 15px 5px;
+  width: 100%;
+  max-width: 100%;
+  height: auto;
   object-fit: cover;
   object-position : 0% 55%;
 }
@@ -141,7 +163,7 @@ label {
   margin: 10px 5px 15px 5px;
   width: 70%;
   max-width: 70%;
-  height: 280px;
+  height: auto;
   object-fit: cover;
   object-position : 0% 55%;
 }
@@ -162,4 +184,20 @@ label {
 
 .btn-info:hover {
   background: #7f9db5;
+}
+
+.navbar-brand {
+  width: 500px;
+}
+
+.navbar-light .navbar-toggler {
+    border-color: rgba(0,0,0,0);
+}
+
+.card-header {
+  background: #fffacd;
+}
+
+.green {
+  color: #3cb371;
 }

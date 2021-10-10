@@ -1,4 +1,5 @@
 class Public::QuestionsController < ApplicationController
+  before_action :authenticate_user!, only: [:create, :update, :destroy]
   before_action :check_guest, only: [:create, :update, :destroy]
   def check_guest
     if current_user.email == 'guest@example.com'
@@ -19,7 +20,7 @@ class Public::QuestionsController < ApplicationController
       @genre = Genre.find(params[:genre_id])
       @questions = @genre.questions.page(params[:id])
     else
-      @questions = Question.page(params[:page])
+      @questions = Question.page(params[:page]).order(created_at: :desc)
     end
     @genre.present? ? @name = @genre.name : @name = "投稿"
     @sort_list = Question.sort_list
@@ -39,12 +40,9 @@ class Public::QuestionsController < ApplicationController
         if user.user.sex == 'man'
           @answers_sex[:a0][:man] << user.user if num == 0
           @answers_sex[:a1][:man] << user.user if num == 1
-
         else
           @answers_sex[:a0][:woman] << user.user if num == 0
           @answers_sex[:a1][:woman] << user.user if num == 1
-          @answers0_woman = @answers_sex[:a0][:woman]
-          @answers1_woman = @answers_sex[:a1][:woman]
         end
       end
     end
@@ -119,7 +117,7 @@ class Public::QuestionsController < ApplicationController
     if question.save
       redirect_to questions_path, notice: '新規作成しました'
     else
-      @questions = Question.page(params[:page])
+      @questions = Question.page(params[:page]).order(created_at: :desc)
       render :index
     end
   end

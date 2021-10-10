@@ -36,7 +36,7 @@ class DeviseCreateUsers < ActiveRecord::Migration[5.2]
       t.integer :sex
       t.integer :age
       t.integer :area
-      t.integer :image_id
+      t.string :image_id
       t.boolean :is_active, null: true, default: true
       t.datetime :remember_updated_at
 
