@@ -1,4 +1,6 @@
 class Admin::HomesController < ApplicationController
+  before_action :authenticate_admin_admin!
+
   def top
     @genres = Genre.all
     if params[:sort].present? && params[:genre_id].present?

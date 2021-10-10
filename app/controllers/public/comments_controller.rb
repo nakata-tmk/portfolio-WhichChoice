@@ -1,4 +1,5 @@
 class Public::CommentsController < ApplicationController
+  before_action :authenticate_user!, only: [:create, :destroy]
   before_action :check_guest, only: [:create, :destroy]
   def check_guest
     if current_user.email == 'guest@example.com'

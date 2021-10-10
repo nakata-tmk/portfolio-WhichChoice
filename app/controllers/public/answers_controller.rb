@@ -1,4 +1,5 @@
 class Public::AnswersController < ApplicationController
+  before_action :authenticate_user!, only: [:create]
   before_action :check_guest, only: [:create]
   def check_guest
     if current_user.email == 'guest@example.com'

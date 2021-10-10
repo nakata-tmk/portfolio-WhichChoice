@@ -1,4 +1,6 @@
 class Admin::QuestionsController < ApplicationController
+  before_action :authenticate_admin_admin!
+
   def show
     @question = Question.find(params[:id])
     @answers0_all = Answer.where(question_id: @question.id, answer: 0)
