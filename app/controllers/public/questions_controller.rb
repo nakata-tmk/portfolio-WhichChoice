@@ -117,8 +117,8 @@ class Public::QuestionsController < ApplicationController
     if question.save
       redirect_to questions_path, notice: '新規作成しました'
     else
-      @questions = Question.page(params[:page]).order(created_at: :desc)
-      render :index
+      @question = question
+      render :new
     end
   end
 

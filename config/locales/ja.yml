@@ -37,7 +37,7 @@ ja:
         image_id: '画像'
 
       question:
-        genre_id: 'ジャンル名'
+        genre: 'ジャンル'
         object1: '質問事項1'
         object2: '質問事項2'
         body: '本文'

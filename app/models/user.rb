@@ -9,10 +9,12 @@ class User < ApplicationRecord
   has_many :comments, dependent: :destroy
   has_many :favorites, dependent: :destroy
 
-  validates :name, presence: true
+  validates :name, presence: true, uniqueness: true, length: { in: 2..15 }
   validates :sex, presence: true
   validates :age, presence: true
   validates :area, presence: true
+
+  attachment :image
 
   enum sex: {
     man: 0,
@@ -48,8 +50,6 @@ class User < ApplicationRecord
       user.password = SecureRandom.urlsafe_base64
     end
   end
-
-  attachment :image
 
   def active_for_authentication?
     super && (self.is_active === true)
