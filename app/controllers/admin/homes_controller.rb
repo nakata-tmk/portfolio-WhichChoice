@@ -16,7 +16,7 @@ class Admin::HomesController < ApplicationController
     else
       @questions = Question.page(params[:page]).order(created_at: :desc)
     end
-    @genre.present? ? @name = @genre.name : @name = "投稿"
+    @genre.present? ? @name = @genre.name : @name = "アンケート"
     @sort_list = Question.sort_list
   end
 

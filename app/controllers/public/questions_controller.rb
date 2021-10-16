@@ -22,7 +22,7 @@ class Public::QuestionsController < ApplicationController
     else
       @questions = Question.page(params[:page]).order(created_at: :desc)
     end
-    @genre.present? ? @name = @genre.name : @name = "投稿"
+    @genre.present? ? @name = @genre.name : @name = "アンケート"
     @sort_list = Question.sort_list
   end
 
@@ -132,7 +132,7 @@ class Public::QuestionsController < ApplicationController
       redirect_to question_path(params[:id]), notice: '更新しました'
     else
       @question = question
-      render :show
+      render :edit
     end
   end
 

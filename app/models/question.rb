@@ -7,7 +7,7 @@ class Question < ApplicationRecord
 
   validates :object1, presence: true, length: { maximum: 15 }
   validates :object2, presence: true, length: { maximum: 15 }
-  validates :body, presence: true, length: { maximum: 50 }
+  validates :body, presence: true, length: { maximum: 100 }
 
   def favorited_by?(user)
     favorites.where(user_id: user.id).exists?

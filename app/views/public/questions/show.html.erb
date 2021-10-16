@@ -20,8 +20,8 @@
       </div>
 
       <% if @question.user == current_user %>
-        <%= link_to "編集", edit_question_path %>
-        <%= link_to "削除", question_path(@question.id), method: :delete, "data-confirm" => "本当に削除しますか？", class: "mr-3" %>
+        <%= link_to "編集", edit_question_path, class: "btn btn-link" %>
+        <%= link_to "削除", question_path(@question.id), method: :delete, "data-confirm" => "本当に削除しますか？", class: "btn btn-link mr-2" %>
       <% end %>
     </div>
 

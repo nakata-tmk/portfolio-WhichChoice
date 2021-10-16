@@ -42,9 +42,9 @@
             <td>
               <%= link_to admin_user_path(question.user.id) do %>
                 <%= attachment_image_tag question.user, :image, size: "70x60", fallback: "noimage.jpg" %>
+                <br>
+                <%= question.user.name %>
               <% end %>
-              <br>
-              <%= question.user.name %>
             </td>
             <td>
               <%= link_to admin_question_path(question) do %>

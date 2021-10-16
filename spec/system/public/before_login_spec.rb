@@ -7,24 +7,23 @@ describe 'ユーザログイン前のテスト' do
     before do
       visit root_path
     end
-
     context '表示内容の確認' do
       it 'URLが正しい' do
         expect(current_path).to eq '/'
       end
-      it '新規登録リンクが表示される: 左上から3番目のリンクが「新規登録」である' do
-        sign_up_link = find_all('a')[3].native.inner_text
-        expect(sign_up_link).to match(/登録/i)
+      it '新規登録リンクが表示される: 左上から6番目のリンクが「新規登録」である' do
+        sign_up_link = find_all('a')[6].native.inner_text
+        expect(sign_up_link).to match(/会員登録する/i)
       end
       it '新規登録リンクの内容が正しい' do
-        expect(page).to have_link '登録', href: new_user_registration_path
+        expect(page).to have_link '会員登録する', href: new_user_registration_path
       end
-      it 'ログインリンクが表示される: 左上から4番目のリンクが「ログイン」である' do
-        log_in_link = find_all('a')[4].native.inner_text
-        expect(log_in_link).to match(/ログイン/i)
+      it 'ログインリンクが表示される: 左上から7番目のリンクが「アンケート一覧」である' do
+        log_in_link = find_all('a')[7].native.inner_text
+        expect(log_in_link).to match(/アンケート一覧/i)
       end
       it 'ログインリンクの内容が正しい' do
-        expect(page).to have_link 'ログイン', href: new_user_session_path
+        expect(page).to have_link 'アンケート一覧', href: questions_path
       end
     end
   end
@@ -33,7 +32,6 @@ describe 'ユーザログイン前のテスト' do
     before do
       visit about_path
     end
-
     context '表示内容の確認' do
       it 'URLが正しい' do
         expect(current_path).to eq '/about'
@@ -45,7 +43,6 @@ describe 'ユーザログイン前のテスト' do
     before do
       visit root_path
     end
-
     context '表示内容の確認' do
       it 'Aboutリンクが表示される: 左上から1番目のリンクが「About」である' do
         about_link = find_all('a')[1].native.inner_text
@@ -64,8 +61,8 @@ describe 'ユーザログイン前のテスト' do
         expect(login_link).to match(/ログイン/i)
       end
       it 'ゲストログインリンクが表示される: 左上から5番目のリンクが「ゲスト」である' do
-        login_link = find_all('a')[5].native.inner_text
-        expect(login_link).to match(/ゲスト/i)
+        guest_link = find_all('a')[5].native.inner_text
+        expect(guest_link).to match(/ゲスト/i)
       end
     end
 
@@ -96,6 +93,12 @@ describe 'ユーザログイン前のテスト' do
         click_link login_link
         is_expected.to eq '/users/sign_in'
       end
+      it 'ゲストを押すと、ゲストログイン後トップ画面に遷移する' do
+        guest_link = find_all('a')[5].native.inner_text
+        guest_link = guest_link.gsub(/\n/, '').gsub(/\A\s*/, '').gsub(/\s*\Z/, '')
+        click_link guest_link
+        is_expected.to eq '/'
+      end
     end
   end
 
@@ -103,7 +106,6 @@ describe 'ユーザログイン前のテスト' do
     before do
       visit new_user_registration_path
     end
-
     context '表示内容の確認' do
       it 'URLが正しい' do
         expect(current_path).to eq '/users/sign_up'
@@ -147,7 +149,6 @@ describe 'ユーザログイン前のテスト' do
         fill_in 'user[password]', with: 'password'
         fill_in 'user[password_confirmation]', with: 'password'
       end
-
       it '正しく新規登録される' do
         expect { click_button '新規登録' }.to change(User.all, :count).by(1)
       end
@@ -159,12 +160,10 @@ describe 'ユーザログイン前のテスト' do
   end
 
   describe 'ユーザログイン' do
-    let(:user) { create(:user) }
-
+    let!(:user) { create(:user) }
     before do
       visit new_user_session_path
     end
-
     context '表示内容の確認' do
       it 'URLが正しい' do
         expect(current_path).to eq '/users/sign_in'
@@ -194,7 +193,6 @@ describe 'ユーザログイン前のテスト' do
         expect(current_path).to eq '/users'
       end
     end
-
     context 'ログイン失敗のテスト' do
       before do
         fill_in 'user[email]', with: ''
@@ -209,8 +207,7 @@ describe 'ユーザログイン前のテスト' do
   end
 
   describe 'ヘッダーのテスト: ログインしている場合' do
-    let(:user) { create(:user) }
-
+    let!(:user) { create(:user) }
     before do
       visit new_user_session_path
       fill_in 'user[email]', with: user.email
@@ -235,8 +232,7 @@ describe 'ユーザログイン前のテスト' do
   end
 
   describe 'ユーザログアウトのテスト' do
-    let(:user) { create(:user) }
-
+    let!(:user) { create(:user) }
     before do
       visit new_user_session_path
       fill_in 'user[email]', with: user.email
@@ -258,79 +254,10 @@ describe 'ユーザログイン前のテスト' do
   end
 
   describe 'ログインしていない場合のアクセス権限のテスト' do
-    context 'ログインしていない場合、ログイン画面へリダイレクトする' do
-      let(:user) { create(:user) }
-      let(:genre) { create(:genre) }
-      let!(:question) { build(:question, user_id: user.id, genre_id: genre.id) }
-
-      it 'マイページ' do
+    context 'ログイン画面へリダイレクトする' do
+      it 'マイページ画面' do
         visit users_path
         expect(current_path).to eq '/users/sign_in'
-      end
-      it '会員情報編集画面' do
-        visit edit_users_path
-        expect(current_path).to eq '/users/sign_in'
-      end
-      it '退会確認画面' do
-        visit leave_users_path
-        expect(current_path).to eq '/users/sign_in'
-      end
-      it '管理者トップ画面' do
-        visit admin_top_path
-        expect(current_path).to eq '/admin/sign_in'
-      end
-      it '管理者検索画面' do
-        visit admin_search_path
-        expect(current_path).to eq '/admin/sign_in'
-      end
-      it '管理者アンケート詳細画面' do
-        visit admin_question_path(question)
-        expect(current_path).to eq '/admin/sign_in'
-      end
-      it '管理者ジャンル一覧画面' do
-        visit admin_genres_path
-        expect(current_path).to eq '/admin/sign_in'
-      end
-      it '管理者ジャンル編集画面' do
-        visit edit_admin_genres_path(genre)
-        expect(current_path).to eq '/admin/sign_in'
-      end
-      it '管理者会員一覧画面' do
-        visit admin_users_path
-        expect(current_path).to eq '/admin/sign_in'
-      end
-      it '管理者会員詳細画面' do
-        visit admin_user_path(user)
-        expect(current_path).to eq '/admin/sign_in'
-      end
-      it '管理者会員詳細画面' do
-        visit edit_admin_user_path(user)
-        expect(current_path).to eq '/admin/sign_in'
-      end
-    end
-
-    context '表示内容の確認' do
-      before do
-        visit question_path(question)
-      end
-
-      it 'URLが正しい' do
-        expect(current_path).to eq '/questions/' + question.id.to_s
-      end
-      it 'アンケート編集リンクが表示されない' do
-        expect(page).not_to have_link '編集'
-      end
-      it 'アンケート削除リンクが表示されない' do
-        expect(page).not_to have_link '削除'
-      end
-      it '回答投票リンクが表示されない' do
-        expect(page).not_to have_link '投票'
-      end
-      it 'いいねリンクが表示されない' do
-        expect(page).not_to have_link 'いいね'
-      end
-      it 'コメント作成リンクが表示されない' do
-        expect(page).not_to have_link 'コメントする'
       end
     end
   end
