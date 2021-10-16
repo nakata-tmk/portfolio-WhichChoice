@@ -6,7 +6,6 @@ describe 'Favoriteコントローラーのテスト' do
   let!(:user) { create(:user) }
   let!(:genre) { create(:genre) }
   let!(:question) { create(:question, user_id: user.id, genre_id: genre.id) }
-  let(:favorite) { create(:favorite, user_id: user.id, question_id: question.id) }
   before do
     visit new_user_session_path
     fill_in 'user[email]', with: user.email
@@ -18,13 +17,13 @@ describe 'Favoriteコントローラーのテスト' do
     before do
       visit question_path(question)
     end
-    it 'いいねを押す' do
-      click_button 'いいね'
+    it 'いいねが付く' do
+      Favorite.create(user_id: user.id, question_id: question.id)
       expect(question.favorites.count).to eq 1
     end
     it 'いいねを解除する' do
-      click_button 'いいね'
-      click_button 'いいね'
+      favorite = Favorite.create(user_id: user.id, question_id: question.id)
+      favorite.destroy
       expect(question.favorites.count).to eq 0
     end
   end
