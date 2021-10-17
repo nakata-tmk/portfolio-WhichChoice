@@ -45,5 +45,5 @@
 - IDE：Cloud9
 
 ## 使用素材
-[あずきフォント](http://azukifont.com/index.html)
-[うずらフォント](http://azukifont.com/index.html)
+- [あずきフォント](http://azukifont.com/index.html)
+- [うずらフォント](http://azukifont.com/index.html)
