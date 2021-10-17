@@ -3,11 +3,11 @@
 
   <div class=col-md-9>
     <div class="row">
-      <div class=col-md-6>
+      <div class=col-md-8>
         <h2><%= @name + '一覧（全' + @questions.count.to_s + '件）' %></h2>
       </div>
 
-      <div class=col-md-6>
+      <div class=col-md-4>
         <div class="row text-right ml-3">
           <%= form_with method: :get do |f| %>
             <% if @sorted.present? %>

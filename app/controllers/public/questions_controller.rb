@@ -55,16 +55,16 @@ class Public::QuestionsController < ApplicationController
         if user.user.age == 'teens'
           @answers_age[:a0][:teens] << user.user if num == 0
           @answers_age[:a1][:teens] << user.user if num == 1
-        elsif user.user == 'twenties'
+        elsif user.user.age == 'twenties'
           @answers_age[:a0][:twenties] << user.user if num == 0
           @answers_age[:a1][:twenties] << user.user if num == 1
-        elsif user.user == 'thirties'
+        elsif user.user.age == 'thirties'
           @answers_age[:a0][:thirties] << user.user if num == 0
           @answers_age[:a1][:thirties] << user.user if num == 1
-        elsif user.user == 'forties'
+        elsif user.user.age == 'forties'
           @answers_age[:a0][:forties] << user.user if num == 0
           @answers_age[:a1][:forties] << user.user if num == 1
-        elsif user.user == 'fifties'
+        elsif user.user.age == 'fifties'
           @answers_age[:a0][:fifties] << user.user if num == 0
           @answers_age[:a1][:fifties] << user.user if num == 1
         else
