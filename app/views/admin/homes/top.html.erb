@@ -4,7 +4,7 @@
   <div class=col-md-9>
     <div class="row">
       <div class=col-md-8>
-        <h2><%= @name + '一覧（全' + @questions.count.to_s + '件）' %></h2>
+        <h2><%= @name + '一覧' %></h2>
       </div>
 
       <div class=col-md-4>
@@ -68,5 +68,6 @@
         <% end %>
       </table>
     </div>
+    <%= paginate @questions %>
   </div>
 </div>

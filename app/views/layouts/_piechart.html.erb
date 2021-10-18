@@ -1,4 +1,4 @@
-<div style="width:500px; height:300px; margin:0 auto;">
+<div class="canvas-container">
   <canvas id="<%=chart_name %>PieChart"></canvas>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.js"></script>
   <script>
@@ -13,7 +13,11 @@
                 "#fff8dc"
             ],
             data: [<%= answers0.count %>, <%= answers1.count %>]
-        }]
+        }],
+        options: {
+              responsive: true,
+              maintainAspectRatio: false
+        }
       },
     });
   </script>

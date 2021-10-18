@@ -55,7 +55,7 @@ h1,h2,h3,a,ul,li,p,.table,label,button {
 
 h1, h2, h3 {
   font-family: “uzura”;
-  margin-top: 3px;
+  margin-top: 5px;
 }
 
 h3 {
@@ -261,35 +261,25 @@ th {
   margin-top: 30px;
 }
 
-.ribon {
+.canvas-container {
   position: relative;
-  padding: 10px;
-  background: #ead2db;
-  color: white;
-  margin-top: 2px;
+  width:  calc(100% - 40px);
+  height: auto;
+  overflow: hidden;
+  margin:20px;
 }
 
-.ribon::before {
-  position: absolute;
-  content: '';
-  top: 100%;
-  left: 0;
-  border: none;
-  border-bottom: solid 15px transparent;
-  border-right: solid 10px #cc7a97;
+.pagination {
+  font-family: “azuki”;
+  justify-content: center;
 }
 
-.title {
-  padding: 0.25em 0.5em;
-  border-left: solid 5px #7db4e6;
+.page,.next,.last,.first,.prev {
+  padding: 5px;
 }
 
-.tab-pane {
-  padding: 10px 50px 30px 50px;
+.center {
+  display: flex;
+  margin: 0 auto;
 }
 
-.chart {
-  width: 100%;
-  padding: 10px;
-  padding-bottom: 0;
-}

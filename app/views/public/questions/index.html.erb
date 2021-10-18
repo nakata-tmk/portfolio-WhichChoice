@@ -3,28 +3,30 @@
 
   <div class=col-md-9>
     <div class="row">
-      <div class=col-md-8>
-        <h2><%= @name + '一覧（全' + @questions.count.to_s + '件）' %></h2>
+      <div class=col-md-9>
+        <h2><%= @name + '一覧' %></h2>
       </div>
-      <div class=col-md-4>
-        <div class="row text-right">
-          <%= form_with method: :get do |f| %>
-            <% if @sorted.present? %>
-              <%= f.select :sort, @sort_list, selected: @sorted, onChange: "javascript: this.form.submit();" %>
-            <% else %>
-              <%= f.select :sort, @sort_list, {}, onChange: "javascript: this.form.submit();" %>
-              <%= f.hidden_field :genre_id, :value => @genre&.id %>
+      <div class=col-md-3>
+        <div class="row">
+          <div class="center">
+            <%= form_with method: :get do |f| %>
+              <% if @sorted.present? %>
+                <%= f.select :sort, @sort_list, selected: @sorted, onChange: "javascript: this.form.submit();" %>
+              <% else %>
+                <%= f.select :sort, @sort_list, {}, onChange: "javascript: this.form.submit();" %>
+                <%= f.hidden_field :genre_id, :value => @genre&.id %>
+              <% end %>
             <% end %>
-          <% end %>
 
-          <%= link_to questions_path(format: :csv) do %>
-            <button type="button" class="btn btn-outline-primary btn-sm ml-3">CSV出力</button>
-          <% end %>
-          <% if user_signed_in? %>
-            <%= link_to new_question_path do %>
-              <button type="button" class="btn btn-outline-primary btn-sm ml-3">新規投稿</button>
+            <%= link_to questions_path(format: :csv) do %>
+              <button type="button" class="btn btn-outline-primary btn-sm ml-3">CSV出力</button>
             <% end %>
-          <% end %>
+            <% if user_signed_in? %>
+              <%= link_to new_question_path do %>
+                <button type="button" class="btn btn-outline-primary btn-sm ml-3">新規投稿</button>
+              <% end %>
+            <% end %>
+          </div>
         </div>
       </div>
     </div>
@@ -46,13 +48,11 @@
               <%= question.user.name %>
             </p>
             <p class="ml-3"><%= question.body %></p>
-            <div class="chart">
-              <%= render partial: 'layouts/piechart',
-                locals: { question: question,
-                answers0: Answer.where(question_id: question.id, answer: 0),
-                answers1: Answer.where(question_id: question.id, answer: 1),
-                chart_name: num}%>
-            </div>
+            <%= render partial: 'layouts/piechart',
+              locals: { question: question,
+              answers0: Answer.where(question_id: question.id, answer: 0),
+              answers1: Answer.where(question_id: question.id, answer: 1),
+              chart_name: num}%>
           </div>
           <div class="card-footer">
             <p>
@@ -67,5 +67,6 @@
         </div>
       <% end %>
     </div>
+    <%= paginate @questions %>
   </div>
 </div>
