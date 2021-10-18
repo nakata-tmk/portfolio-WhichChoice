@@ -1,4 +1,4 @@
-<div style="width:500px; height:300px;">
+<div style="width:500px; height:300px; margin:0 auto;">
   <canvas id="<%=chart_name %>PieChart"></canvas>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.js"></script>
   <script>
@@ -9,8 +9,8 @@
         labels: ["<%=question.object1 %>派", "<%= question.object2 %>派"],
         datasets: [{
             backgroundColor: [
-                "#6495ed",
-                "#ffe4e1"
+                "#e6e6fa",
+                "#fff8dc"
             ],
             data: [<%= answers0.count %>, <%= answers1.count %>]
         }]

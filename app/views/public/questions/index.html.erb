@@ -6,7 +6,6 @@
       <div class=col-md-8>
         <h2><%= @name + '一覧（全' + @questions.count.to_s + '件）' %></h2>
       </div>
-
       <div class=col-md-4>
         <div class="row text-right">
           <%= form_with method: :get do |f| %>
@@ -30,44 +29,43 @@
       </div>
     </div>
 
-    <table class="table">
-      <thead class="thead">
-        <tr>
-          <th>投稿日</th>
-          <th>投稿者</th>
-          <th>タイトル</th>
-          <th>投票結果</th>
-          <th>ジャンル</th>
-          <th>コメント<br>いいね</th>
-        </tr>
-        <% @questions.each do |question| %>
-          <tr>
-            <td><%= question.created_at.strftime('%Y/%m/%d') %></td>
-            <td>
+    <div class="question">
+      <% num = 0 %>
+      <% @questions.each do |question| %>
+        <div class="card">
+          <div class="card-header">
+            <%= link_to question_path(question) do %>
+              <h3><%= question.object1 + '派 or ' + question.object2 + '派？' %></h3>
+            <% end %>
+          </div>
+
+          <div class="card-body">
+            <p>
               <%= attachment_image_tag question.user, :image, size: "70x60", fallback: "noimage.jpg" %>
-              <br>
+              <%= question.created_at.strftime('%Y/%m/%d') %>
               <%= question.user.name %>
-            </td>
-            <td>
-              <%= link_to question_path(question), class: "ml-3" do %>
-                <%= question.object1 + '派 or ' + question.object2 + '派？' %>
-              <% end %>
-            </td>
-            <td>
-              <%= question.object1 + '派　' + Answer.where(question_id: question.id, answer: 0).count.to_s %>
-              <br>
-              <%= question.object2 + '派　' + Answer.where(question_id: question.id, answer: 1).count.to_s %>
-            </td>
-            <td><%= question.genre.name %></td>
-            <td>
+            </p>
+            <p class="ml-3"><%= question.body %></p>
+            <div class="chart">
+              <%= render partial: 'layouts/piechart',
+                locals: { question: question,
+                answers0: Answer.where(question_id: question.id, answer: 0),
+                answers1: Answer.where(question_id: question.id, answer: 1),
+                chart_name: num}%>
+            </div>
+          </div>
+          <div class="card-footer">
+            <p>
               <i class="fas fa-comment"></i>
               <%=question.comments.count %>
-              <br>
               <i class="far fa-thumbs-up"></i>
               <%=question.favorites.count %>
-            </td>
-          </tr>
-        <% end %>
-      </thead>
-    </table>
+              <span class="green"><%= "＃#{question.genre.name}" %></span>
+            </p>
+          </div>
+          <% num += 1 %>
+        </div>
+      <% end %>
+    </div>
   </div>
+</div>

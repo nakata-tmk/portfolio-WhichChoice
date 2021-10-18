@@ -206,14 +206,90 @@ th {
 }
 
 .card-header {
-  background: #fffacd;
+  background: #FAF4D6;
 }
 
 .green {
-  color: #3cb371;
+  color: #66cdaa;
+  margin-left: 3px;
 }
 
 #sort {
   width: 100px;
   height: 30px;
+}
+
+.question .card {
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+.question .card-header {
+  text-indent: 1em;
+  background: -webkit-repeating-linear-gradient(-45deg,#F5E5EB 0,#F5E5EB 10px,#fff 10px,#fff 20px);
+  background: -o-repeating-linear-gradient(-45deg,#F5E5EB 0,#F5E5EB 10px,#fff 10px,#fff 20px);
+  background: repeating-linear-gradient(-45deg,#F5E5EB 0,#F5E5EB 10px,#fff 10px,#fff 20px);
+}
+
+.question .card-body {
+  padding-top: 3px;
+  padding-bottom: 0px;
+}
+
+.question .card-footer {
+  background: #fff;
+  padding: 0px 10px 5px 20px;
+  border-top: none;
+}
+
+.question a:link h3 {
+  color: black;
+  text-decoration: none;
+}
+
+.question a:visited h3 {
+  color: black;
+  text-decoration: none;
+}
+
+.question a:hover h3 {
+  color: gray;
+  text-decoration: none;
+}
+
+.question .card-body ul {
+  margin-top: 30px;
+}
+
+.ribon {
+  position: relative;
+  padding: 10px;
+  background: #ead2db;
+  color: white;
+  margin-top: 2px;
+}
+
+.ribon::before {
+  position: absolute;
+  content: '';
+  top: 100%;
+  left: 0;
+  border: none;
+  border-bottom: solid 15px transparent;
+  border-right: solid 10px #cc7a97;
+}
+
+.title {
+  padding: 0.25em 0.5em;
+  border-left: solid 5px #7db4e6;
+}
+
+.tab-pane {
+  padding: 10px 50px 30px 50px;
+}
+
+.chart {
+  width: 100%;
+  padding: 10px;
+  padding-bottom: 0;
 }
