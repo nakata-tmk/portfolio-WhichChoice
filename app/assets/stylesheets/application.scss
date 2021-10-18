@@ -206,7 +206,11 @@ th {
 }
 
 .card-header {
-  background: #FAF4D6;
+  background-image:
+    radial-gradient(#D6EDFA 20%, transparent 20%),
+    radial-gradient(#D6EDFA 20%, transparent 20%);
+  background-size: 40px 40px;
+  background-position: 0 0, 20px 20px;
 }
 
 .green {
@@ -281,6 +285,7 @@ th {
 .center {
   display: flex;
   margin: 0 auto;
+  margin-bottom: 3px;
 }
 
 .vote {

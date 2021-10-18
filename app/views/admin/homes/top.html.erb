@@ -27,15 +27,16 @@
 
     <div class="table-responsive-md">
       <table class="table">
-        <tr>
-          <th>投稿日</th>
-          <th>投稿者</th>
-          <th>タイトル</th>
-          <th>投票結果</th>
-          <th>ジャンル</th>
-          <th>コメント<br>いいね</th>
-        </tr>
-
+        <thead class="thead-light">
+          <tr>
+            <th>投稿日</th>
+            <th>投稿者</th>
+            <th>タイトル</th>
+            <th>投票結果</th>
+            <th>ジャンル</th>
+            <th></th>
+          </tr>
+        </thead>
         <% @questions.each do |question| %>
           <tr>
             <td><%= question.created_at.strftime('%Y/%m/%d') %></td>

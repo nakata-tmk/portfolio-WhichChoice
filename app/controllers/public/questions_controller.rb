@@ -18,7 +18,7 @@ class Public::QuestionsController < ApplicationController
       @questions = Kaminari.paginate_array(questions).page(params[:page])
     elsif params[:genre_id].present?
       @genre = Genre.find(params[:genre_id])
-      @questions = @genre.questions.page(params[:id])
+      @questions = @genre.questions.page(params[:id]).order(created_at: :desc)
     else
       @questions = Question.page(params[:page]).order(created_at: :desc)
     end
