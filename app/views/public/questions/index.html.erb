@@ -19,11 +19,11 @@
             <% end %>
 
             <%= link_to questions_path(format: :csv) do %>
-              <button type="button" class="btn btn-outline-primary btn-sm ml-3">CSV出力</button>
+              <button type="button" class="btn btn-primary btn-sm ml-3">CSV出力</button>
             <% end %>
             <% if user_signed_in? %>
               <%= link_to new_question_path do %>
-                <button type="button" class="btn btn-outline-primary btn-sm ml-3">新規投稿</button>
+                <button type="button" class="btn btn-primary btn-sm ml-3">新規投稿</button>
               <% end %>
             <% end %>
           </div>

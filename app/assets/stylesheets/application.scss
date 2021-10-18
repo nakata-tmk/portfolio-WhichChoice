@@ -49,10 +49,6 @@ footer {
   margin-top: 20px;
 }
 
-h1,h2,h3,a,ul,li,p,.table,label,button {
-  font-family: “azuki”;
-}
-
 h1, h2, h3 {
   font-family: “uzura”;
   margin-top: 5px;
@@ -60,6 +56,10 @@ h1, h2, h3 {
 
 h3 {
   font-size: 18px;
+}
+
+a,ul,li,p,.table,label,button {
+  font-family: “azuki”;
 }
 
 p {
@@ -179,6 +179,15 @@ th {
   object-position : 0% 55%;
 }
 
+.btn-primary {
+  background: #6495ed;
+  border: #6495ed;
+}
+
+.btn-primary:hover {
+  background: #8eafed;
+}
+
 .btn-secondary {
   background: #db9aaf;
   border: #db9aaf;
@@ -197,6 +206,15 @@ th {
   background: #7f9db5;
 }
 
+.btn-danger {
+  background: #ed6494;
+  border: #ed6494;
+}
+
+.btn-danger:hover {
+  background: #ed8eaf;
+}
+
 .navbar-brand {
   width: 500px;
 }
@@ -213,14 +231,10 @@ th {
   background-position: 0 0, 20px 20px;
 }
 
-.green {
-  color: #66cdaa;
-  margin-left: 3px;
-}
-
 #sort {
   width: 100px;
   height: 30px;
+  text-align: center;
 }
 
 .question .card {
@@ -286,6 +300,11 @@ th {
   display: flex;
   margin: 0 auto;
   margin-bottom: 3px;
+}
+
+.green {
+  color: #66cdaa;
+  margin-left: 3px;
 }
 
 .vote {

@@ -4,11 +4,13 @@
   <div class="col-md-7">
     <h2>ジャンル一覧</h2>
     <%= form_with model: [:admin, @genre], local:true do |f| %>
-      <table class="table table-borderless">
+      <table class="table table-borderless text-left">
         <tr>
-          <td>ジャンル名</td>
-          <td><%= f.text_field :name %></td>
-          <td><%= f.submit '新規作成' %></td>
+          <td>
+            ジャンル名
+            <%= f.text_field :name %>
+            <%= f.submit '新規作成', class: "btn btn-primary btn-sm" %>
+          </td>
         </tr>
       </table>
     <% end %>

@@ -3,8 +3,8 @@
 <p>退会する場合は、「退会する」をクリックしてください。</p>
 
 <%= link_to users_path do %>
-  <button type="button" class="btn btn-outline-primary btn-sm mt-3 mr-3">退会しない</button>
+  <button type="button" class="btn btn-primary btn-sm mt-3 mr-3">退会しない</button>
 <% end %>
 <%= link_to withdraw_users_path, method: :patch, "data-confirm" => "本当に退会しますか？" do %>
-  <button type="button" class="btn btn-outline-danger btn-sm mt-3">退会する</button>
+  <button type="button" class="btn btn-danger btn-sm mt-3">退会する</button>
 <% end %>
