@@ -13,14 +13,18 @@ class Question < ApplicationRecord
     favorites.where(user_id: user.id).exists?
   end
 
-  def self.sort(selection)
+  def self.sort(selection, genre_id)
     case selection
     when 'new'
       order(created_at: :DESC)
     when 'old'
       order(created_at: :ASC)
     when 'favorites'
-      all.sort { |a, b| b.favorites.count <=> a.favorites.count }
+      if genre_id.present?
+        where(genre_id: genre_id).sort { |a, b| b.favorites.count <=> a.favorites.count }
+      else
+        all.sort { |a, b| b.favorites.count <=> a.favorites.count }
+      end
     end
   end
 
