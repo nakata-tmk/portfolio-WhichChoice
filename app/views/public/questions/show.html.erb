@@ -173,17 +173,19 @@
       </div>
     </div>
 
-    <% if user_signed_in? %>
-      <h2>投票</h2>
-      <%= form_with model:@answer, url:answer_path, local:true do |f| %>
-        <%= f.radio_button :answer, 0 %>
-        <%= f.label :answer, @question.object1 + "派", class: "mr-5" %>
-        <%= f.radio_button :answer, 1 %>
-        <%= f.label :answer, @question.object2 + "派", class: "mr-5"%>
-        <%= f.hidden_field :question_id, :value => @question.id %>
-        <%= f.submit "投票" %>
+    <div class="vote">
+      <% if user_signed_in? %>
+        <h2><i class="fas fa-bookmark"></i> 投票</h2>
+        <%= form_with model:@answer, url:answer_path, local:true do |f| %>
+          <%= f.radio_button :answer, 0 %>
+          <%= f.label :answer, @question.object1 + "派", class: "mr-5" %>
+          <%= f.radio_button :answer, 1 %>
+          <%= f.label :answer, @question.object2 + "派", class: "mr-5"%>
+          <%= f.hidden_field :question_id, :value => @question.id %>
+          <%= f.submit "投票" %>
+        <% end %>
       <% end %>
-    <% end %>
+    </div>
   </div>
 </div>
 
@@ -200,16 +202,22 @@
     <table class="table-borderless text-left">
       <% @question.comments.each do |comment| %>
         <tr>
-          <td><%= attachment_image_tag comment.user, :image, size: "40x40", fallback: "noimage.jpg" %></td>
-          <td><p class="ml-3 mt-3"><%= comment.user.name %></p></td>
-          <td><p class="ml-3 mt-3"><%= comment.created_at.strftime('%Y/%m/%d') %></p></td>
+          <td>
+            <p class="mb-0">
+              <%= attachment_image_tag comment.user, :image, size: "40x40", fallback: "noimage.jpg" %>
+              <%= comment.user.name %>
+              <%= comment.created_at.strftime('%Y/%m/%d') %>
+            </p>
+          </td>
         </tr>
         <tr>
-          <td colspan="3">
-            <p class="ml-3 mt-3"><%= comment.body %></p>
-            <% if comment.user == current_user %>
-              <%= link_to "削除", question_comment_path(comment.question, comment), method: :delete, "data-confirm" => "本当に削除しますか？", class: "ml-3" %>
-            <% end %>
+          <td>
+            <p>
+              <%= comment.body %>
+              <% if comment.user == current_user %>
+                <%= link_to "削除", question_comment_path(comment.question, comment), method: :delete, "data-confirm" => "本当に削除しますか？", class: "ml-3" %>
+              <% end %>
+            </p>
           </td>
         </tr>
        <% end %>
