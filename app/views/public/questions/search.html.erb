@@ -5,8 +5,7 @@
     <h2><%= @title %></h2>
 
     <div class="question">
-      <% num = 0 %>
-      <% @questions.each do |question| %>
+      <% @questions.each_with_index do |question,num| %>
         <div class="card">
           <div class="card-header">
             <%= link_to question_path(question) do %>
@@ -36,7 +35,6 @@
               <span class="green"><%= "＃#{question.genre.name}" %></span>
             </p>
           </div>
-          <% num += 1 %>
         </div>
       <% end %>
     </div>
