@@ -178,9 +178,9 @@
         <h2><i class="fas fa-bookmark"></i> 投票</h2>
         <%= form_with model:@answer, url:answer_path, local:true do |f| %>
           <%= f.radio_button :answer, 0 %>
-          <%= f.label :answer, @question.object1 + "派", class: "mr-5" %>
+          <%= f.label :answer_0, @question.object1 + "派", class: "mr-5" %>
           <%= f.radio_button :answer, 1 %>
-          <%= f.label :answer, @question.object2 + "派", class: "mr-5"%>
+          <%= f.label :answer_1, @question.object2 + "派", class: "mr-5"%>
           <%= f.hidden_field :question_id, :value => @question.id %>
           <%= f.submit "投票", class: "btn btn-primary btn-sm" %>
         <% end %>
