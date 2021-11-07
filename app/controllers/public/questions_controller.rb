@@ -11,11 +11,9 @@ class Public::QuestionsController < ApplicationController
     @genres = Genre.all
     if params[:sort].present? && params[:genre_id].present?
       @genre = Genre.find(params[:genre_id])
-      questions = Question.sort(params[:sort], params[:genre_id])
-      @questions = Kaminari.paginate_array(questions).page(params[:page])
+      @questions = Question.sort(params[:sort], params[:genre_id]).page(params[:page])
     elsif params[:sort].present?
-      questions = Question.sort(params[:sort], params[:genre_id])
-      @questions = Kaminari.paginate_array(questions).page(params[:page])
+      @questions = Question.sort(params[:sort], params[:genre_id]).page(params[:page])
     elsif params[:genre_id].present?
       @genre = Genre.find(params[:genre_id])
       @questions = @genre.questions.page(params[:id]).order(created_at: :desc)

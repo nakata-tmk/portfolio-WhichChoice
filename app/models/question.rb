@@ -16,14 +16,22 @@ class Question < ApplicationRecord
   def self.sort(selection, genre_id)
     case selection
     when 'new'
-      order(created_at: :DESC)
+      if genre_id.present?
+        where(genre_id: genre_id).order(created_at: :DESC)
+      else
+        order(created_at: :DESC)
+      end
     when 'old'
-      order(created_at: :ASC)
+      if genre_id.present?
+        where(genre_id: genre_id).order(created_at: :ASC)
+      else
+        order(created_at: :ASC)
+      end
     when 'favorites'
       if genre_id.present?
-        where(genre_id: genre_id).sort { |a, b| b.favorites.count <=> a.favorites.count }
+        left_joins(:favorites).where(genre_id: genre_id).group(:id).order('count(favorites.question_id) desc')
       else
-        all.sort { |a, b| b.favorites.count <=> a.favorites.count }
+        left_joins(:favorites).group(:id).order('count(favorites.question_id) desc')
       end
     end
   end
