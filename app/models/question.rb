@@ -5,6 +5,13 @@ class Question < ApplicationRecord
   has_many :comments, dependent: :destroy
   has_many :favorites, dependent: :destroy
 
+  has_many :answers0, ->{where answer: 0},class_name: :Answer  # answerが0
+  has_many :answers1, ->{where answer: 1},class_name: :Answer  # answerが1
+  has_many :answers0_man, ->{ joins(:user).where(answer: 0).where(users: { sex: 'man'}) }, class_name: :Answer # 男性のanswerが0
+  has_many :answers1_man, ->{ joins(:user).where(answer: 1).where(users: { sex: 'man'}) }, class_name: :Answer # 男性のanswerが1
+  has_many :answers0_woman, ->{ joins(:user).where(answer: 0).where(users: { sex: 'woman'}) }, class_name: :Answer # 女性のanswerが0
+  has_many :answers1_woman, ->{ joins(:user).where(answer: 1).where(users: { sex: 'woman'}) }, class_name: :Answer # 女性のanswerが1
+
   validates :object1, presence: true, length: { maximum: 15 }
   validates :object2, presence: true, length: { maximum: 15 }
   validates :body, presence: true, length: { maximum: 100 }

@@ -42,26 +42,26 @@
           <div class="tab-content">
             <div id="all" class="tab-pane active">
               <p class="mt-3 ml-3">
-                <%= "#{@question.object1}派 #{@answers0_all.count}" %>
-                <%= "/ #{@question.object2}派 #{@answers1_all.count}" %>
+                <%= "#{@question.object1}派 #{@question.answers0.count}" %>
+                <%= "/ #{@question.object2}派 #{@question.answers1.count}" %>
               </p>
-              <%= render partial: 'layouts/piechart', locals: { question: @question, answers0: @answers0_all, answers1: @answers1_all, chart_name: "all"} %>
+              <%= render partial: 'layouts/piechart', locals: { question: @question, answers0: @question.answers0, answers1: @question.answers1, chart_name: "all"} %>
             </div>
 
             <div id="sex" class="tab-pane">
               <h3 class="mt-3 ml-3"><%= User.sexes_i18n[:man] %></h3>
               <p class="mt-3 ml-3">
-                <%= "#{@question.object1} 派 #{@answers_sex[:a0][:man].count}" %>
-                <%= "/ #{@question.object2} 派 #{@answers_sex[:a1][:man].count}" %>
+                <%= "#{@question.object1} 派 #{@question.answers0_man.count}" %>
+                <%= "/ #{@question.object2} 派 #{@question.answers1_man.count}" %>
               </p>
-              <%= render partial: 'layouts/piechart', locals: { question: @question, answers0: @answers_sex[:a0][:man], answers1: @answers_sex[:a1][:man], chart_name: "man"} %>
+              <%= render partial: 'layouts/piechart', locals: { question: @question, answers0: @question.answers0_man, answers1: @question.answers1_man, chart_name: "man"} %>
 
               <h3 class="mt-3 ml-3"><%= User.sexes_i18n[:woman] %></h3>
               <p class="mt-3 ml-3">
-                <%= "#{@question.object1} 派 #{@answers_sex[:a0][:woman].count}" %>
-                <%= "/ #{@question.object2} 派 #{@answers_sex[:a1][:woman].count}" %>
+                <%= "#{@question.object1} 派 #{@question.answers0_woman.count}" %>
+                <%= "/ #{@question.object2} 派 #{@question.answers1_woman.count}" %>
               </p>
-              <%= render partial: 'layouts/piechart', locals: { question: @question, answers0: @answers_sex[:a0][:woman], answers1: @answers_sex[:a1][:woman], chart_name: "woman"} %>
+              <%= render partial: 'layouts/piechart', locals: { question: @question, answers0: @question.answers0_woman, answers1: @question.answers1_woman, chart_name: "woman"} %>
             </div>
 
             <div id="age" class="tab-pane">
