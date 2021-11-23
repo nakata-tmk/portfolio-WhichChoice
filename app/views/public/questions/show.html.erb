@@ -67,103 +67,103 @@
             <div id="age" class="tab-pane">
               <h3 class="mt-3 ml-3"><%= User.ages_i18n[:teens] %></h3>
               <p class="mt-3 ml-3">
-                <%= "#{@question.object1} 派 #{@answers_age[:a0][:teens].count}" %>
-                <%= "/ #{@question.object2} 派 #{@answers_age[:a1][:teens].count}" %>
+                <%= "#{@question.object1} 派 #{@question.answers0_teens.count}" %>
+                <%= "/ #{@question.object2} 派 #{@question.answers1_teens.count}" %>
               </p>
-              <%= render partial: 'layouts/piechart', locals: { question: @question, answers0: @answers_age[:a0][:teens], answers1: @answers_age[:a1][:teens], chart_name: "teen"} %>
+              <%= render partial: 'layouts/piechart', locals: { question: @question, answers0: @question.answers0_teens, answers1: @question.answers1_teens, chart_name: "teen"} %>
 
               <h3 class="mt-3 ml-3"><%= User.ages_i18n[:twenties] %></h3>
               <p class="mt-3 ml-3">
-                <%= "#{@question.object1} 派 #{@answers_age[:a0][:twenties].count}" %>
-                <%= "/ #{@question.object2} 派 #{@answers_age[:a1][:twenties].count}" %>
+                <%= "#{@question.object1} 派 #{@question.answers0_twenties.count}" %>
+                <%= "/ #{@question.object2} 派 #{@question.answers1_twenties.count}" %>
               </p>
-              <%= render partial: 'layouts/piechart', locals: { question: @question, answers0: @answers_age[:a0][:twenties], answers1: @answers_age[:a1][:twenties], chart_name: "twenties"} %>
+              <%= render partial: 'layouts/piechart', locals: { question: @question, answers0: @question.answers0_twenties, answers1: @question.answers1_twenties, chart_name: "twenties"} %>
 
               <h3 class="mt-3 ml-3"><%= User.ages_i18n[:thirties] %></h3>
               <p class="mt-3 ml-3">
-                <%= "#{@question.object1} 派 #{@answers_age[:a0][:thirties].count}" %>
-                <%= "/ #{@question.object2} 派 #{@answers_age[:a1][:thirties].count}" %>
+                <%= "#{@question.object1} 派 #{@question.answers0_thirties.count}" %>
+                <%= "/ #{@question.object2} 派 #{@question.answers1_thirties.count}" %>
               </p>
-              <%= render partial: 'layouts/piechart', locals: { question: @question, answers0: @answers_age[:a0][:thirties], answers1: @answers_age[:a1][:thirties], chart_name: "thirties"} %>
+              <%= render partial: 'layouts/piechart', locals: { question: @question, answers0: @question.answers0_thirties, answers1: @question.answers1_thirties, chart_name: "thirties"} %>
 
               <h3 class="mt-3 ml-3"><%= User.ages_i18n[:forties] %></h3>
               <p class="mt-3 ml-3">
-                <%= "#{@question.object1} 派 #{@answers_age[:a0][:forties].count}" %>
-                <%= "/ #{@question.object2} 派 #{@answers_age[:a1][:forties].count}" %>
+                <%= "#{@question.object1} 派 #{@question.answers0_forties.count}" %>
+                <%= "/ #{@question.object2} 派 #{@question.answers1_forties.count}" %>
               </p>
-              <%= render partial: 'layouts/piechart', locals: { question: @question, answers0: @answers_age[:a0][:forties], answers1: @answers_age[:a1][:forties], chart_name: "forties"} %>
+              <%= render partial: 'layouts/piechart', locals: { question: @question, answers0: @question.answers0_forties, answers1: @question.answers1_forties, chart_name: "forties"} %>
 
               <h3 class="mt-3 ml-3"><%= User.ages_i18n[:fifties] %></h3>
               <p class="mt-3 ml-3">
-                <%= "#{@question.object1} 派 #{@answers_age[:a0][:fifties].count}" %>
-                <%= "/ #{@question.object2} 派 #{@answers_age[:a1][:fifties].count}" %>
+                <%= "#{@question.object1} 派 #{@question.answers0_fifties.count}" %>
+                <%= "/ #{@question.object2} 派 #{@question.answers1_fifties.count}" %>
               </p>
-              <%= render partial: 'layouts/piechart', locals: { question: @question, answers0: @answers_age[:a0][:fifties], answers1: @answers_age[:a1][:fifties], chart_name: "fifties"} %>
+              <%= render partial: 'layouts/piechart', locals: { question: @question, answers0: @question.answers0_fifties, answers1: @question.answers1_fifties, chart_name: "fifties"} %>
 
               <h3 class="mt-3 ml-3"><%= User.ages_i18n[:sixties] %></h3>
               <p class="mt-3 ml-3">
-                <%= "#{@question.object1} 派 #{@answers_age[:a0][:sixties].count}" %>
-                <%= "/ #{@question.object2} 派 #{@answers_age[:a1][:sixties].count}" %>
+                <%= "#{@question.object1} 派 #{@question.answers0_sixties.count}" %>
+                <%= "/ #{@question.object2} 派 #{@question.answers1_sixties.count}" %>
               </p>
-              <%= render partial: 'layouts/piechart', locals: { question: @question, answers0: @answers_age[:a0][:sixties], answers1: @answers_age[:a1][:sixties], chart_name: "sixties"} %>
+              <%= render partial: 'layouts/piechart', locals: { question: @question, answers0: @question.answers0_sixties, answers1: @question.answers1_sixties, chart_name: "sixties"} %>
             </div>
 
             <div id="area" class="tab-pane">
               <h3 class="mt-3 ml-3"><%= User.areas_i18n[:hokkaidou] %></h3>
               <p class="mt-3 ml-3">
-                <%= "#{@question.object1} 派 #{@answers_area[:a0][:hokkaidou].count}" %>
-                <%= "/ #{@question.object2} 派 #{@answers_area[:a1][:hokkaidou].count}" %>
+                <%= "#{@question.object1} 派 #{@question.answers0_hokkaidou.count}" %>
+                <%= "/ #{@question.object2} 派 #{@question.answers1_hokkaidou.count}" %>
               </p>
-              <%= render partial: 'layouts/piechart', locals: { question: @question, answers0: @answers_area[:a0][:hokkaidou], answers1: @answers_area[:a1][:hokkaidou], chart_name: "hokkaidou"} %>
+              <%= render partial: 'layouts/piechart', locals: { question: @question, answers0: @question.answers0_hokkaidou, answers1: @question.answers1_hokkaidou, chart_name: "hokkaidou"} %>
 
               <h3 class="mt-3 ml-3"><%= User.areas_i18n[:touhoku] %></h3>
               <p class="mt-3 ml-3">
-                <%= "#{@question.object1} 派 #{@answers_area[:a0][:touhoku].count}" %>
-                <%= "/ #{@question.object2} 派 #{@answers_area[:a1][:touhoku].count}" %>
+                <%= "#{@question.object1} 派 #{@question.answers0_touhoku.count}" %>
+                <%= "/ #{@question.object2} 派 #{@question.answers1_touhoku.count}" %>
               </p>
-              <%= render partial: 'layouts/piechart', locals: { question: @question, answers0: @answers_area[:a0][:touhoku], answers1: @answers_area[:a1][:touhoku], chart_name: "touhoku"} %>
+              <%= render partial: 'layouts/piechart', locals: { question: @question, answers0: @question.answers0_touhoku, answers1: @question.answers1_touhoku, chart_name: "touhoku"} %>
 
               <h3 class="mt-3 ml-3"><%= User.areas_i18n[:kantou] %></h3>
               <p class="mt-3 ml-3">
-                <%= "#{@question.object1} 派 #{@answers_area[:a0][:kantou].count}" %>
-                <%= "/ #{@question.object2} 派 #{@answers_area[:a1][:kantou].count}" %>
+                <%= "#{@question.object1} 派 #{@question.answers0_kantou.count}" %>
+                <%= "/ #{@question.object2} 派 #{@question.answers1_kantou.count}" %>
               </p>
-              <%= render partial: 'layouts/piechart', locals: { question: @question, answers0: @answers_area[:a0][:kantou], answers1: @answers_area[:a1][:kantou], chart_name: "kantou"} %>
+              <%= render partial: 'layouts/piechart', locals: { question: @question, answers0: @question.answers0_kantou, answers1: @question.answers1_kantou, chart_name: "kantou"} %>
 
               <h3 class="mt-3 ml-3"><%= User.areas_i18n[:cyuubu] %></h3>
               <p class="mt-3 ml-3">
-                <%= "#{@question.object1} 派 #{@answers_area[:a0][:cyuubu].count}" %>
-                <%= "/ #{@question.object2} 派 #{@answers_area[:a1][:cyuubu].count}" %>
+                <%= "#{@question.object1} 派 #{@question.answers0_cyuubu.count}" %>
+                <%= "/ #{@question.object2} 派 #{@question.answers1_cyuubu.count}" %>
               </p>
-              <%= render partial: 'layouts/piechart', locals: { question: @question, answers0: @answers_area[:a0][:cyuubu], answers1: @answers_area[:a1][:cyuubu], chart_name: "cyuubu"} %>
+              <%= render partial: 'layouts/piechart', locals: { question: @question, answers0: @question.answers0_cyuubu, answers1: @question.answers1_cyuubu, chart_name: "cyuubu"} %>
 
               <h3 class="mt-3 ml-3"><%= User.areas_i18n[:kansai] %></h3>
               <p class="mt-3 ml-3">
-                <%= "#{@question.object1} 派 #{@answers_area[:a0][:kansai].count}" %>
-                <%= "/ #{@question.object2} 派 #{@answers_area[:a1][:kansai].count}" %>
+                <%= "#{@question.object1} 派 #{@question.answers0_kansai.count}" %>
+                <%= "/ #{@question.object2} 派 #{@question.answers1_kansai.count}" %>
               </p>
-              <%= render partial: 'layouts/piechart', locals: { question: @question, answers0: @answers_area[:a0][:kansai], answers1: @answers_area[:a1][:kansai], chart_name: "kansai"} %>
+              <%= render partial: 'layouts/piechart', locals: { question: @question, answers0: @question.answers0_kansai, answers1: @question.answers1_kansai, chart_name: "kansai"} %>
 
               <h3 class="mt-3 ml-3"><%= User.areas_i18n[:cyuugoku] %></h3>
               <p class="mt-3 ml-3">
-                <%= "#{@question.object1} 派 #{@answers_area[:a0][:cyuugoku].count}" %>
-                <%= "/ #{@question.object2} 派 #{@answers_area[:a1][:cyuugoku].count}" %>
+                <%= "#{@question.object1} 派 #{@question.answers0_cyuugoku.count}" %>
+                <%= "/ #{@question.object2} 派 #{@question.answers1_cyuugoku.count}" %>
               </p>
-              <%= render partial: 'layouts/piechart', locals: { question: @question, answers0: @answers_area[:a0][:cyuugoku], answers1: @answers_area[:a1][:cyuugoku], chart_name: "cyuugoku"} %>
+              <%= render partial: 'layouts/piechart', locals: { question: @question, answers0: @question.answers0_cyuugoku, answers1: @question.answers1_cyuugoku, chart_name: "cyuugoku"} %>
 
               <h3 class="mt-3 ml-3"><%= User.areas_i18n[:shikoku] %></h3>
               <p class="mt-3 ml-3">
-                <%= "#{@question.object1} 派 #{@answers_area[:a0][:shikoku].count}" %>
-                <%= "/ #{@question.object2} 派 #{@answers_area[:a1][:shikoku].count}" %>
+                <%= "#{@question.object1} 派 #{@question.answers0_shikoku.count}" %>
+                <%= "/ #{@question.object2} 派 #{@question.answers1_shikoku.count}" %>
               </p>
-              <%= render partial: 'layouts/piechart', locals: { question: @question, answers0: @answers_area[:a0][:shikoku], answers1: @answers_area[:a1][:shikoku], chart_name: "shikoku"} %>
+              <%= render partial: 'layouts/piechart', locals: { question: @question, answers0: @question.answers0_shikoku, answers1: @question.answers1_shikoku, chart_name: "shikoku"} %>
 
               <h3 class="mt-3 ml-3"><%= User.areas_i18n[:kyuusyuu] %></h3>
               <p class="mt-3 ml-3">
-                <%= "#{@question.object1} 派 #{@answers_area[:a0][:kyuusyuu].count}" %>
-                <%= "/ #{@question.object2} 派 #{@answers_area[:a1][:kyuusyuu].count}" %>
+                <%= "#{@question.object1} 派 #{@question.answers0_kyuusyuu.count}" %>
+                <%= "/ #{@question.object2} 派 #{@question.answers1_kyuusyuu.count}" %>
               </p>
-              <%= render partial: 'layouts/piechart', locals: { question: @question, answers0: @answers_area[:a0][:kyuusyuu], answers1: @answers_area[:a1][:kyuusyuu], chart_name: "kyuusyuu"} %>
+              <%= render partial: 'layouts/piechart', locals: { question: @question, answers0: @question.answers0_kyuusyuu, answers1: @question.answers1_kyuusyuu, chart_name: "kyuusyuu"} %>
             </div>
             <div id="favorite_<%= @question.id %>">
               <%= render partial: 'public/favorites/favorites', locals: { question: @question } %>
